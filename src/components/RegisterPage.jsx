@@ -25,7 +25,8 @@ const RegisterPage = () => {
 
   return (
     <div className="page register-page">
-      <button className="back-button" onClick={handleBack}>← Zurück</button>
+        <img src="/src/assets/Sips.less.png" alt="Logo" />
+      <a className="back-link" onClick={handleBack}>←</a>
       <h1>Registrieren</h1>
       <input type="text" placeholder="Benutzername" />
       <input
@@ -40,6 +41,7 @@ const RegisterPage = () => {
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
+      <button onClick={handleRegister}>Registrieren</button>
       <div className="checkbox-container">
         <input
           type="checkbox"
@@ -47,9 +49,8 @@ const RegisterPage = () => {
           checked={isChecked}
           onChange={(e) => setIsChecked(e.target.checked)}
         />
-        <label htmlFor="privacy-policy">Datenschutzbestimmungen</label>
+        <label htmlFor="privacy-policy">Ich stimme dem Datenschutz zu</label>
       </div>
-      <button onClick={handleRegister}>Registrieren</button>
     </div>
   );
 };

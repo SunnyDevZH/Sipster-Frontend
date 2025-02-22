@@ -14,11 +14,15 @@ const LoginPage = () => {
 
   return (
     <div className="page login-page">
+        <img src="/src/assets/Sips.less.png" alt="Logo" />
       <h1>Login</h1>
       <input type="text" placeholder="Benutzername" />
       <input type="password" placeholder="Passwort" />
       <button onClick={handleLogin}>Login</button>
-      <button onClick={handleRegister}>Registrieren</button>
+      <div className="register-link">
+        <span>Noch kein Account? </span>
+        <a onClick={handleRegister}>Registrieren</a>
+      </div>
     </div>
   );
 };

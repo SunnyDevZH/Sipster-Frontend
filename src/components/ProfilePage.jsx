@@ -10,7 +10,7 @@ const ProfilePage = () => {
 
   return (
     <div className="page profile-page">
-      <button className="back-button" onClick={handleBack}>← Zurück</button>
+      <a className="back-link" onClick={handleBack}>←</a>
       <h1>Profilseite</h1>
       <img src="/src/assets/profile-pic.png" alt="Profilbild" />
       <p>Benutzername</p>

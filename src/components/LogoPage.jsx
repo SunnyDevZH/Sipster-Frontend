@@ -11,7 +11,10 @@ const LogoPage = () => {
   return (
     <div className="logo-page">
       <img src="/src/assets/Sips.less.png" alt="Logo" />
-      <button onClick={handleNext}>Finde dein Bar</button>
+      <div className='logo-sipster'>
+        <a onClick={handleNext}>Sipster</a>
+        <p>Finde deine Bar hier</p>
+      </div>
     </div>
   );
 };

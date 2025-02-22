@@ -78,7 +78,7 @@ button:focus-visible {
 .page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Ändere von center zu flex-start */
   align-items: center;
   height: 100vh;
 }
@@ -98,29 +98,55 @@ button:focus-visible {
 .login-page, .register-page, .home-page, .profile-page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Ändere von center zu flex-start */
   align-items: center;
   height: 100vh;
   width: 100vw;
 }
 
-.login-page h1, .register-page h1, .home-page h1, .profile-page h1 {
+.login-page h1, .register-page h1, .home-page h1, .profile-page h1, .logo-sipster a {
   color: rgb(240,191,66);
+}
+
+.logo-sipster {
+  a{font-size: 70px;}
+  
+  font-family: fantasy;
 }
 
 .login-page input, .register-page input {
   margin-bottom: 10px;
   padding: 10px;
-  font-size: 16px;
-  width: 200px;
+  font-size: 14px; /* Kleinere Schriftgröße */
+  width: 228px;
+  border-radius: 20px; 
+  border: 1px solid #ccc; /* Optional: Rahmenfarbe */
 }
 
 .login-page button, .register-page button, .home-page button, .profile-page button {
-  margin-top: 10px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   background-color: rgb(240,191,66);
+  border-radius: 20px; 
+  width: 250px;
+  height: 38px;
+}
+
+.register-link {
+  margin-top: 10px;
+  font-size: 14px;
+  color: gray;
+}
+
+.register-link a {
+  color: rgb(240,191,66);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.register-link a:hover {
+  color: #ff4500; /* Farbe beim Hover über den Registrierungslink */
 }
 
 .back-button {
@@ -140,32 +166,137 @@ button:focus-visible {
   background-color: rgb(220,171,46);
 }
 
-.profile-button {
-  margin-bottom: 20px;
+.back-link {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  color: rgb(240,191,66);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: rgb(220,171,46);
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px; /* Füge einen oberen Rand hinzu */
+  cursor: pointer;
+}
+
+.profile-pic {
+  width: 80px !important; /* Verkleinere das Profilbild */
+  height: 80px !important; /* Verkleinere das Profilbild */
+  border-radius: 50%;
+  margin-bottom: 10px;
 }
 
 .category {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  padding:20px;
+  
 }
 
-.bar-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.bar-item img {
-  width: 150px;
-  height: 150px;
+.category h2 {
+  font-size: 12px; /* Kleinere Schriftgröße */
   margin-bottom: 10px;
 }
 
-.bar-item p {
-  font-size: 18px;
+.category-items {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 20px;
+  overflow-x: auto; /* Ermöglicht horizontales Scrollen */
+  white-space: nowrap; /* Verhindert Zeilenumbruch */
+  width: 340px;
+}
+
+.category-item {
+  background-color: #333;
   color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 100px;
+}
+
+.bar-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bar-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  padding: 20px;
+  background-color: #444;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.bar-details h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.bar-details img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.bar-details p {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.checkbox-container input {
+  margin-right: 5px; /* Reduziere den Abstand auf maximal 5px */
+}
+
+.checkbox-container label {
+  font-size: 14px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.navigation-bar {
+  position: fixed; /* Ändere von sticky zu fixed */
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  padding: 10px 0;
+}
+
+.navigation-bar a {
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.navigation-bar a:hover {
+  color: #ff4500;
 }
 
 @media (prefers-color-scheme: light) {
