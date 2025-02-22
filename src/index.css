@@ -189,8 +189,8 @@ button:focus-visible {
 }
 
 .profile-pic {
-  width: 80px !important; /* Verkleinere das Profilbild */
-  height: 80px !important; /* Verkleinere das Profilbild */
+  width: 60px !important; /* Verkleinere das Profilbild */
+  height: 60px !important; /* Verkleinere das Profilbild */
   border-radius: 50%;
   margin-bottom: 10px;
 }
@@ -198,9 +198,10 @@ button:focus-visible {
 .category {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding:20px;
-  
+  align-items: flex-start; /* Links ausrichten */
+  width: 100%;
+  padding: 0 20px;
+  margin-left: 10px; /* Abstand nach links */
 }
 
 .category h2 {
@@ -231,7 +232,13 @@ button:focus-visible {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  padding: 0 20px;
+}
+
+.bar-container h2 {
+  font-size: 12px; /* Gleiche Größe wie Kategorie */
+  margin-bottom: 10px;
 }
 
 .bar-details {
@@ -256,6 +263,18 @@ button:focus-visible {
   max-width: 300px;
   height: auto;
   margin-bottom: 10px;
+  position: relative;
+}
+
+.bar-details img::after {
+  content: attr(data-price);
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .bar-details p {

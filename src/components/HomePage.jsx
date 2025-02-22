@@ -20,7 +20,7 @@ const HomePage = () => {
         <p>Benutzername</p>
       </div>
       <div className="category">
-        <h2>Kategorie:</h2>
+        <h2>Kategorie: Bars</h2>
         <div className="category-items">
           <div className="category-item">Kategorie 1</div>
           <div className="category-item">Kategorie 2</div>
@@ -33,34 +33,34 @@ const HomePage = () => {
         </div>
       </div>
       <div className="bar-container">
+        <h2>Bar Name 1</h2>
         <div className="bar-details">
-          <h3>Bar Name 1</h3>
           <img src="/src/assets/bar.example.jpg" alt="Bar" />
-          <p>Bewertung: ★★★★☆</p>
+          <p>Preis: $10</p>
           <p>Info: Dies ist ein Beispieltext für die Bar.</p>
         </div>
+        <h2>Bar Name 2</h2>
         <div className="bar-details">
-          <h3>Bar Name 2</h3>
           <img src="/src/assets/bar.example.jpg" alt="Bar" />
-          <p>Bewertung: ★★★★☆</p>
+          <p>Preis: $15</p>
           <p>Info: Dies ist ein Beispieltext für die Bar.</p>
         </div>
+        <h2>Bar Name 3</h2>
         <div className="bar-details">
-          <h3>Bar Name 3</h3>
           <img src="/src/assets/bar.example.jpg" alt="Bar" />
-          <p>Bewertung: ★★★★☆</p>
+          <p>Preis: $12</p>
           <p>Info: Dies ist ein Beispieltext für die Bar.</p>
         </div>
+        <h2>Bar Name 4</h2>
         <div className="bar-details">
-          <h3>Bar Name 4</h3>
           <img src="/src/assets/bar.example.jpg" alt="Bar" />
-          <p>Bewertung: ★★★★☆</p>
+          <p>Preis: $8</p>
           <p>Info: Dies ist ein Beispieltext für die Bar.</p>
         </div>
+        <h2>Bar Name 5</h2>
         <div className="bar-details">
-          <h3>Bar Name 5</h3>
           <img src="/src/assets/bar.example.jpg" alt="Bar" />
-          <p>Bewertung: ★★★★☆</p>
+          <p>Preis: $20</p>
           <p>Info: Dies ist ein Beispieltext für die Bar.</p>
         </div>
       </div>
