@@ -75,18 +75,9 @@ button:focus-visible {
   background-color: rgb(240,191,66);
 }
 
-.page {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Ändere von center zu flex-start */
-  align-items: center;
-  height: 100vh;
-}
-
 .page img {
   width: 200px; /* Passe die Größe des Logos an */
   height: 200px; /* Passe die Größe des Logos an */
-  margin-bottom: 20px;
 }
 
 .page button {
@@ -100,7 +91,7 @@ button:focus-visible {
   flex-direction: column;
   justify-content: flex-start; /* Ändere von center zu flex-start */
   align-items: center;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
 }
 
@@ -199,9 +190,6 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Links ausrichten */
-  width: 100%;
-  padding: 0 20px;
-  margin-left: 10px; /* Abstand nach links */
 }
 
 .category h2 {
@@ -213,23 +201,36 @@ button:focus-visible {
   display: flex;
   flex-direction: row;
   gap: 10px;
-  margin-bottom: 20px;
   overflow-x: auto; /* Ermöglicht horizontales Scrollen */
   white-space: nowrap; /* Verhindert Zeilenumbruch */
-  width: 340px;
+  width: 320px;
+}
+
+.category-item-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .category-item {
   background-color: #333;
   color: white;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 20px;
+  border-radius: 50%;
   cursor: pointer;
-  border-radius: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+}
+
+.category-item-wrapper p {
+  margin-top: 5px;
+  font-size: 12px 
 }
 
 .bar-container {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -247,40 +248,40 @@ button:focus-visible {
   align-items: center;
   width: 100%;
   max-width: 300px;
-  padding: 20px;
+  padding: 10px;
   background-color: #444;
   border-radius: 10px;
   margin-bottom: 20px;
+
+  p {
+    font-size: 12px;
+    margin-bottom: 0px;
+  }
 }
 
-.bar-details h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.bar-details img {
+.bar-image-wrapper {
+  position: relative;
   width: 100%;
   max-width: 300px;
-  height: auto;
-  margin-bottom: 10px;
-  position: relative;
 }
 
-.bar-details img::after {
-  content: attr(data-price);
+.bar-image-wrapper img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.price-tag {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 30px; /* Preis weiter nach oben verschieben */
+  left: 10px;
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 5px;
   border-radius: 5px;
 }
 
-.bar-details p {
-  font-size: 16px;
-  margin-bottom: 5px;
-}
+
 
 .checkbox-container {
   display: flex;
