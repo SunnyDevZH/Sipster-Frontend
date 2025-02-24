@@ -18,9 +18,10 @@ const HomePage = () => {
       <div className="profile-section" onClick={handleProfileClick}>
         <img className="profile-pic" src="/src/assets/profilbild.jpeg" alt="Profilbild" />
         <p>Benutzername</p>
+        <input type="text" className="search-field" placeholder="Suche..." />
       </div>
       <div className="category">
-        <h2>Kategorie:</h2>
+        <h2>Kategorie: Bars</h2>
         <div className="category-items">
           <div className="category-item-wrapper">
             <div className="category-item"></div>
@@ -101,9 +102,22 @@ const HomePage = () => {
         </div>
       </div>
       <div className="navigation-bar">
-        <a href="/home">Home</a>
-        <a href="/profile">Profil</a>
-        <a href="/settings">Einstellungen</a>
+        <div className="nav-left">
+          <a href="/home">
+            <img src="/src/assets/home-weiss.png" alt="Home" className="nav-icon" style={{ width: '24px', height: '24px' }} />
+            Home
+          </a>
+          <a href="/profile">
+            <img src="/src/assets/profil-weiss1.png" alt="Profil" className="nav-icon" style={{ width: '24px', height: '24px' }} />
+            Profil
+          </a>
+        </div>
+        <div className="nav-right">
+          <a href="/magic-bier">
+            <img src="/src/assets/beer.png" alt="Magic Bier" className="nav-icon" style={{ width: '24px', height: '24px' }} />
+            Magic Bier
+          </a>
+        </div>
       </div>
     </div>
   );
