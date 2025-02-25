@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [showAnimation, setShowAnimation] = useState(false);
 
   const handleBack = () => {
     navigate(-1); // Navigiert zur vorherigen Seite
@@ -12,16 +13,28 @@ const HomePage = () => {
     navigate('/profile'); // Navigiert zur Profilseite
   };
 
+  const handleMagicBierClick = () => {
+    setShowAnimation(true);
+    setTimeout(() => {
+      setShowAnimation(false);
+    }, 5000); // Animation für 10 Sekunden anzeigen
+  };
+
   return (
     <div className="page home-page">
+      {showAnimation && (
+        <div className="loading-animation">
+          <img src="/src/assets/beer.png" alt="Magic Bier" className="loading-icon" />
+        </div>
+      )}
       <a className="back-link" onClick={handleBack}>←</a>
       <div className="profile-section" onClick={handleProfileClick}>
         <img className="profile-pic" src="/src/assets/profilbild.jpeg" alt="Profilbild" />
         <p>Benutzername</p>
-        <input type="text" className="search-field" placeholder="Suche..." />
       </div>
+      <input type="text" className="search-field" placeholder="Suche..." />
       <div className="category">
-        <h2>Kategorie: Bars</h2>
+        <h2>Kategorie:</h2>
         <div className="category-items">
           <div className="category-item-wrapper">
             <div className="category-item"></div>
@@ -104,19 +117,21 @@ const HomePage = () => {
       <div className="navigation-bar">
         <div className="nav-left">
           <a href="/home">
-            <img src="/src/assets/home-weiss.png" alt="Home" className="nav-icon" style={{ width: '24px', height: '24px' }} />
+            <img src="/src/assets/home-weiss.png" alt="Home" className="nav-icon" style={{ width: '20px', height: '20px' }} />
             Home
-          </a>
+          </a> 
+        </div>
+        <div className="nav-middle">
           <a href="/profile">
-            <img src="/src/assets/profil-weiss1.png" alt="Profil" className="nav-icon" style={{ width: '24px', height: '24px' }} />
+            <img src="/src/assets/profil-weiss.png" alt="Profil" className="nav-icon" style={{ width: '20px', height: '20px' }} />
             Profil
           </a>
-        </div>
+          </div>
         <div className="nav-right">
-          <a href="/magic-bier">
+            <div onClick={handleMagicBierClick}>
             <img src="/src/assets/beer.png" alt="Magic Bier" className="nav-icon" style={{ width: '24px', height: '24px' }} />
-            Magic Bier
-          </a>
+            <p>Magic Bier</p>
+            </div>
         </div>
       </div>
     </div>
