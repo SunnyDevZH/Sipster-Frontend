@@ -32,6 +32,7 @@ const ProfilePage = () => {
         </div>
         <p>{username}</p>
         <h2>Trinkanfänger</h2>
+        <p>Um mehr Punkte zu erhalten, hacke die Bars ab, <br /> die du schon kennst!</p>
         <div className="progress-bar">
           <div className="progress" style={{ width: '30%' }}></div>
         </div>
@@ -90,8 +91,8 @@ const ProfilePage = () => {
           </a>
         </div>
         <div className="nav-right">
-          <a href="/magic-bier">
-            <img src="/src/assets/beer.png" alt="Magic Bier" className="nav-icon" style={{ width: '24px', height: '24px' }} />
+          <a href="/home">
+            <img src="/src/assets/bier.png" alt="Magic Bier" className="nav-icon" style={{ width: '24px', height: '24px' }} />
             Magic Bier
           </a>
         </div>

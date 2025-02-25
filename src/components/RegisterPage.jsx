@@ -25,7 +25,7 @@ const RegisterPage = () => {
 
   return (
     <div className="page register-page">
-        <img src="/src/assets/Sips.less.png" alt="Logo" />
+        <img src="/src/assets/sips.ohne.png" alt="Logo" />
       <a className="back-link" onClick={handleBack}>←</a>
       <h1>Registrieren</h1>
       <input type="text" placeholder="Benutzername" />

@@ -14,7 +14,7 @@ const LoginPage = () => {
 
   return (
     <div className="page login-page">
-        <img src="/src/assets/Sips.less.png" alt="Logo" />
+        <img src="/src/assets/sips.ohne.png" alt="Logo" />
       <h1>Login</h1>
       <input type="text" placeholder="Benutzername" />
       <input type="password" placeholder="Passwort" />

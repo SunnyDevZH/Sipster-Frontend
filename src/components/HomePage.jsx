@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const HomePage = () => {
   const navigate = useNavigate();
   const [showAnimation, setShowAnimation] = useState(false);
+  const [checkedBars, setCheckedBars] = useState({});
 
   const handleBack = () => {
     navigate(-1); // Navigiert zur vorherigen Seite
@@ -20,11 +21,18 @@ const HomePage = () => {
     }, 5000); // Animation für 10 Sekunden anzeigen
   };
 
+  const handleCheckClick = (barName) => {
+    setCheckedBars((prevState) => ({
+      ...prevState,
+      [barName]: !prevState[barName],
+    }));
+  };
+
   return (
     <div className="page home-page">
       {showAnimation && (
         <div className="loading-animation">
-          <img src="/src/assets/beer.png" alt="Magic Bier" className="loading-icon" />
+          <img src="/src/assets/bier.png" alt="Magic Bier" className="loading-icon" />
         </div>
       )}
       <a className="back-link" onClick={handleBack}>←</a>
@@ -68,58 +76,32 @@ const HomePage = () => {
         </div>
       </div>
       <div className="bar-container">
-        <h2>Bar Name 1</h2>
-        <div className="bar-details">
-          <div className="bar-image-wrapper">
-            <img src="/src/assets/bar.example.jpg" alt="Bar" />
-            <span className="price-tag">$10</span>
+        {['Bar Name 1', 'Bar Name 2', 'Bar Name 3', 'Bar Name 4', 'Bar Name 5'].map((barName) => (
+          <div key={barName}>
+            <h2>{barName}</h2>
+            <div className="bar-details">
+              <div className="bar-image-wrapper">
+                <img src="/src/assets/bar.jpg" alt="Bar" />
+                <span className="price-tag">$10</span>
+                <img
+                  src={checkedBars[barName] ? '/src/assets/checked.png' : '/src/assets/check.png'}
+                  alt="Check"
+                  className="check-icon"
+                  onClick={() => handleCheckClick(barName)}
+                />
+              </div>
+              <p>Info: Dies ist ein Beispieltext für die Bar.</p>
+              <p>Adresse: Beispielstraße 1, 12345 Beispielstadt</p>
+            </div>
           </div>
-          <p>Info: Dies ist ein Beispieltext für die Bar.</p>
-          <p>Adresse: Beispielstraße 1, 12345 Beispielstadt</p>
-        </div>
-        <h2>Bar Name 2</h2>
-        <div className="bar-details">
-          <div className="bar-image-wrapper">
-            <img src="/src/assets/bar.example.jpg" alt="Bar" />
-            <span className="price-tag">$15</span>
-          </div>
-          <p>Info: Dies ist ein Beispieltext für die Bar.</p>
-          <p>Adresse: Beispielstraße 2, 12345 Beispielstadt</p>
-        </div>
-        <h2>Bar Name 3</h2>
-        <div className="bar-details">
-          <div className="bar-image-wrapper">
-            <img src="/src/assets/bar.example.jpg" alt="Bar" />
-            <span className="price-tag">$12</span>
-          </div>
-          <p>Info: Dies ist ein Beispieltext für die Bar.</p>
-          <p>Adresse: Beispielstraße 3, 12345 Beispielstadt</p>
-        </div>
-        <h2>Bar Name 4</h2>
-        <div className="bar-details">
-          <div className="bar-image-wrapper">
-            <img src="/src/assets/bar.example.jpg" alt="Bar" />
-            <span className="price-tag">$8</span>
-          </div>
-          <p>Info: Dies ist ein Beispieltext für die Bar.</p>
-          <p>Adresse: Beispielstraße 4, 12345 Beispielstadt</p>
-        </div>
-        <h2>Bar Name 5</h2>
-        <div className="bar-details">
-          <div className="bar-image-wrapper">
-            <img src="/src/assets/bar.example.jpg" alt="Bar" />
-            <span className="price-tag">$20</span>
-          </div>
-          <p>Info: Dies ist ein Beispieltext für die Bar.</p>
-          <p>Adresse: Beispielstraße 5, 12345 Beispielstadt</p>
-        </div>
+        ))}
       </div>
       <div className="navigation-bar">
         <div className="nav-left">
           <a href="/home">
             <img src="/src/assets/home-weiss.png" alt="Home" className="nav-icon" style={{ width: '20px', height: '20px' }} />
             Home
-          </a> 
+          </a>
         </div>
         <div className="nav-middle">
           <a href="/profile">
@@ -129,8 +111,8 @@ const HomePage = () => {
           </div>
         <div className="nav-right">
             <div onClick={handleMagicBierClick}>
-            <img src="/src/assets/beer.png" alt="Magic Bier" className="nav-icon" style={{ width: '24px', height: '24px' }} />
-            <p>Magic Bier</p>
+                <img src="/src/assets/bier.png" alt="Magic Bier" className="nav-icon" style={{ width: '24px', height: '24px' }} />
+                <p>Magic Bier</p>
             </div>
         </div>
       </div>
