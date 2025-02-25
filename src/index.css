@@ -208,6 +208,115 @@ button:focus-visible {
   margin-bottom: 10px;
 }
 
+.profile-page .profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.profile-page .profile-pic-wrapper {
+  position: relative;
+}
+
+.profile-page .profile-pic {
+  width: 120px !important;
+  height: 120px !important;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-page .add-photo-button {
+  padding-top: 4px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    border-radius: 73%;
+    background-color: rgb(240, 191, 66);
+    border: none;
+    font-size: 30px;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-page .progress-bar {
+  width: 100%;
+  background-color: #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.profile-page .progress {
+  height: 10px;
+  background-color: rgb(240,191,66);
+}
+
+.profile-page .input-fields {
+  width: 100%;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.profile-page .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.profile-page .input-group label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.profile-page .input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-page .input-group input {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  flex: 1;
+}
+
+.profile-page .save-button {
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  background-color: rgb(240,191,66);
+  border-radius: 5px;
+  border: none;
+  width: 50px;
+}
+
+.profile-page .button-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.profile-page .logout-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  margin-top: 20px;
+}
+
 .category {
   display: flex;
   flex-direction: column;
@@ -332,7 +441,7 @@ button:focus-visible {
   bottom: 0;
   width: 100%;
   display: flex;
-  justify-content:space-between;/* Verteile die Links */
+  justify-content: space-between;
   padding: 10px 0;
   background-color: #333;
   border-top-left-radius: 15px;
@@ -353,6 +462,11 @@ button:focus-visible {
   justify-content: center;
   gap: 20px;
 
+}
+
+.nav-middle {
+  display: flex;
+  justify-content: center;
 }
 
 .nav-right {
