@@ -88,7 +88,7 @@ const HomePage = () => {
         </div>
       )}
       <div className="icon-bar">
-        <h2>Mode</h2>
+        <h2>Display Mode:</h2>
         <img src="/src/assets/boy.png" alt="Boy" className="icon" onClick={() => handleColorChange('cornflowerblue')} />
         <img src="/src/assets/girl.png" alt="Girl" className="icon" onClick={() => handleColorChange('pink')} />
         <img src="/src/assets/hide.png" alt="Close" className="icon" onClick={() => handleColorChange('rgb(234,236,235)')} />
