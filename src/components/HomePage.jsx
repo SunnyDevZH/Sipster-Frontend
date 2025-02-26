@@ -9,7 +9,7 @@ const HomePage = () => {
     return saved ? JSON.parse(saved) : {};
   });
   const [pointsAnimation, setPointsAnimation] = useState({});
-  const [title, setTitle] = useState('Trinkanfänger');
+  const [title, setTitle] = useState('Schluck-Novize');
 
   useEffect(() => {
     localStorage.setItem('checkedBars', JSON.stringify(checkedBars));
@@ -26,12 +26,13 @@ const HomePage = () => {
     const newPoints = checkedCount * 20;
 
     if (newPoints <= 30) {
-      setTitle('Trinkanfänger');
-    } else if (newPoints <= 60) {
-      setTitle('Trinkgelehrter');
-    } else {
-      setTitle('Trinkexperte');
-    }
+        setTitle('Schluck-Novize');
+      } else if (newPoints <= 60) {
+        setTitle('Baronaut');
+      } else {
+        setTitle('Tresengott');
+      }
+
   }, []);
 
   const handleBack = () => {
@@ -60,17 +61,18 @@ const HomePage = () => {
       setPointsAnimation({});
     }, 2000); // Punkte für 1 Sekunde anzeigen
 
-    // Aktualisiere den Trinkstatus
     const checkedCount = Object.values({ ...checkedBars, [barName]: isChecked }).filter(Boolean).length;
     const newPoints = checkedCount * 20;
 
     if (newPoints <= 30) {
-      setTitle('Schluck-Novize');
-    } else if (newPoints <= 60) {
-      setTitle('Baronaut');
-    } else {
-      setTitle('Tresengott');
-    }
+        setTitle('Schluck-Novize');
+      } else if (newPoints <= 60) {
+        setTitle('Baronaut');
+      } else {
+        setTitle('Tresengott');
+      }
+
+    
   };
 
   const handleColorChange = (color) => {
