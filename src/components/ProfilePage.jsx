@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
@@ -7,6 +7,23 @@ const ProfilePage = () => {
   const [email, setEmail] = useState('benutzer@example.com');
   const [birthdate, setBirthdate] = useState('2000-01-01');
   const [password, setPassword] = useState('********');
+  const [points, setPoints] = useState(0);
+  const [title, setTitle] = useState('Trinkanfänger');
+
+  useEffect(() => {
+    const savedCheckedBars = JSON.parse(localStorage.getItem('checkedBars')) || {};
+    const checkedCount = Object.values(savedCheckedBars).filter(Boolean).length;
+    const newPoints = checkedCount * 20;
+    setPoints(newPoints);
+
+    if (newPoints <= 30) {
+      setTitle('Trinkanfänger');
+    } else if (newPoints <= 60) {
+      setTitle('Trinkgelehrter');
+    } else {
+      setTitle('Trinkexperte');
+    }
+  }, []);
 
   const handleLogout = () => {
     // Füge hier die Logout-Logik hinzu
@@ -31,12 +48,12 @@ const ProfilePage = () => {
           <button className="add-photo-button">+</button>
         </div>
         <p>{username}</p>
-        <h2>Trinkanfänger</h2>
+        <h2>{title}</h2>
         <p>Um mehr Punkte zu erhalten, hacke die Bars ab, <br /> die du schon kennst!</p>
         <div className="progress-bar">
-          <div className="progress" style={{ width: '30%' }}></div>
+          <div className="progress" style={{ width: `${points}%` }}></div>
         </div>
-        <p>30 Punkte</p>
+        <p>{points} Punkte</p>
       </div>
       <div className="input-fields">
         <div className="input-group">

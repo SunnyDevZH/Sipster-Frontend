@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [showAnimation, setShowAnimation] = useState(false);
-  const [checkedBars, setCheckedBars] = useState({});
+  const [checkedBars, setCheckedBars] = useState(() => {
+    const saved = localStorage.getItem('checkedBars');
+    return saved ? JSON.parse(saved) : {};
+  });
+  const [pointsAnimation, setPointsAnimation] = useState({});
+
+  useEffect(() => {
+    localStorage.setItem('checkedBars', JSON.stringify(checkedBars));
+  }, [checkedBars]);
 
   const handleBack = () => {
     navigate(-1); // Navigiert zur vorherigen Seite
@@ -22,10 +30,15 @@ const HomePage = () => {
   };
 
   const handleCheckClick = (barName) => {
+    const isChecked = !checkedBars[barName];
     setCheckedBars((prevState) => ({
       ...prevState,
-      [barName]: !prevState[barName],
+      [barName]: isChecked,
     }));
+    setPointsAnimation({ [barName]: isChecked ? '20 Bar Punkte' : '-20 Bar Punkte' });
+    setTimeout(() => {
+      setPointsAnimation({});
+    }, 2000); // Punkte für 1 Sekunde anzeigen
   };
 
   const handleColorChange = (color) => {
@@ -39,9 +52,8 @@ const HomePage = () => {
           <img src="/src/assets/shaker.png" alt="Magic" className="loading-icon" />
         </div>
       )}
-      
+      <h2>Mode</h2>
       <div className="icon-bar">
-      <h2>Display Mode:</h2>
         <img src="/src/assets/boy.png" alt="Boy" className="icon" onClick={() => handleColorChange('cornflowerblue')} />
         <img src="/src/assets/girl.png" alt="Girl" className="icon" onClick={() => handleColorChange('pink')} />
         <img src="/src/assets/hide.png" alt="Close" className="icon" onClick={() => handleColorChange('rgb(234,236,235)')} />
@@ -55,43 +67,42 @@ const HomePage = () => {
       <div className="category">
         <h2>Kategorie:</h2>
         <div className="category-items">
-         <div className="category-item-wrapper">
+          <div className="category-item-wrapper">
             <div className="category-item">
-                <img src="/src/assets/cocktail.png" alt="Kategorie 1" className="category-icon" />
+              <img src="/src/assets/cocktail.png" alt="Kategorie 1" className="category-icon" />
             </div>
             <p>Drinks</p>
           </div>
           <div className="category-item-wrapper">
             <div className="category-item">
-                <img src="/src/assets/champagne-glass.png" alt="Kategorie 1" className="category-icon" />
+              <img src="/src/assets/champagne-glass.png" alt="Kategorie 1" className="category-icon" />
             </div>
             <p>Schaumwein</p>
           </div>
           <div className="category-item-wrapper">
             <div className="category-item">
-                <img src="/src/assets/wine-bottle.png" alt="Kategorie 1" className="category-icon" />
+              <img src="/src/assets/wine-bottle.png" alt="Kategorie 1" className="category-icon" />
             </div>
             <p>Wein</p>
           </div>
           <div className="category-item-wrapper">
             <div className="category-item">
-                <img src="/src/assets/restaurant.png" alt="Kategorie 1" className="category-icon" />
+              <img src="/src/assets/restaurant.png" alt="Kategorie 1" className="category-icon" />
             </div>
             <p>Apero</p>
           </div>
           <div className="category-item-wrapper">
             <div className="category-item">
-                <img src="/src/assets/music.png" alt="Kategorie 1" className="category-icon" />
+              <img src="/src/assets/music.png" alt="Kategorie 1" className="category-icon" />
             </div>
             <p>Live Musik</p>
           </div>
           <div className="category-item-wrapper">
             <div className="category-item">
-                <img src="/src/assets/beer2.png" alt="Kategorie 1" className="category-icon" />
+              <img src="/src/assets/beer2.png" alt="Kategorie 1" className="category-icon" />
             </div>
             <p>Bier</p>
           </div>
-          
           {/* Weitere Kategorien können hier hinzugefügt werden */}
         </div>
       </div>
@@ -103,7 +114,12 @@ const HomePage = () => {
               <div className="bar-image-wrapper">
                 <img src="/src/assets/bar.jpg" alt="Bar" onClick={() => handleCheckClick(barName)} />
                 <span className="price-tag">$10</span>
-                <img src={checkedBars[barName] ? '/src/assets/check.png' : '/src/assets/checked.png'} alt="Check" className="check-icon"/>
+                <img
+                  src={checkedBars[barName] ? '/src/assets/check.png' : '/src/assets/checked.png'}
+                  alt="Check"
+                  className="check-icon"
+                />
+                {pointsAnimation[barName] && <p className="points-animation">{pointsAnimation[barName]}</p>}
               </div>
               <p>Info: Dies ist ein Beispieltext für die Bar.</p>
               <p>Adresse: Beispielstraße 1, 12345 Beispielstadt</p>
@@ -123,12 +139,12 @@ const HomePage = () => {
             <img src="/src/assets/user.png" alt="Profil" className="nav-icon" style={{ width: '20px', height: '20px' }} />
             Profil
           </a>
-          </div>
+        </div>
         <div className="nav-right">
-            <div onClick={handleMagicClick}>
-                <img src="/src/assets/shaker.png" alt="Magic Bier" className="nav-icon" style={{ width: '24px', height: '24px' }} />
-                <p>Magic Bier</p>
-            </div>
+          <div onClick={handleMagicClick}>
+            <img src="/src/assets/shaker.png" alt="Magic Bier" className="nav-icon" style={{ width: '24px', height: '24px' }} />
+            <p>Magic Bier</p>
+          </div>
         </div>
       </div>
     </div>
