@@ -6,7 +6,7 @@ Willkommen bei **Sipster** – der ultimativen App für Bar-Liebhaber! Mit Sipst
 
 - **Bars durchsuchen:** Entdecke eine Vielzahl von Bars, sieh dir deren Details an und finde heraus, welche du bereits besucht hast.
 - **Profilverwaltung:** Passe dein Profilbild an, aktualisiere deinen Namen, deine E-Mail-Adresse, dein Geburtsdatum und dein Passwort.
-- **Magic Bier Animation:** Erlebe eine magische Bier-Animation, die beim Klicken auf "Magic Bier" angezeigt wird.
+- **Magic Animation:** Erlebe eine magische Bier-Animation, die beim Klicken auf "Magic Bier" angezeigt wird.
 - **Punkte-System:** Sammle Punkte, indem du Bars abhakst, die du bereits kennst, und steige in den Rängen auf.
 
 ## Verwendete Technologien

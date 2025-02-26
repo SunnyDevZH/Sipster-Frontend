@@ -80,20 +80,20 @@ const ProfilePage = () => {
       <div className="navigation-bar">
         <div className="nav-left">
           <a href="/home">
-            <img src="/src/assets/home-weiss.png" alt="Home" className="nav-icon" style={{ width: '20px', height: '20px' }} />
+            <img src="/src/assets/home.png" alt="Home" className="nav-icon" style={{ width: '20px', height: '20px' }} />
             Home
           </a>
         </div>
         <div className="nav-middle">
           <a href="/profile">
-            <img src="/src/assets/profil-weiss.png" alt="Profil" className="nav-icon" style={{ width: '20px', height: '20px' }} />
+            <img src="/src/assets/user.png" alt="Profil" className="nav-icon" style={{ width: '20px', height: '20px' }} />
             Profil
           </a>
         </div>
         <div className="nav-right">
           <a href="/home">
-            <img src="/src/assets/bier.png" alt="Magic Bier" className="nav-icon" style={{ width: '24px', height: '24px' }} />
-            Magic Bier
+            <img src="/src/assets/shaker.png" alt="Magic" className="nav-icon" style={{ width: '24px', height: '24px' }} />
+            Magic
           </a>
         </div>
       </div>

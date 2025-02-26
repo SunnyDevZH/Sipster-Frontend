@@ -9,11 +9,11 @@ const LogoPage = () => {
   };
 
   return (
-    <div className="logo-page">
+    <div className="logo-page" onClick={handleNext}>
       <img src="/src/assets/sips.ohne.png" alt="Logo" />
       <div className='logo-sipster'>
-        <a onClick={handleNext}>Sipster</a>
-        <p>Finde deine Bar hier</p>
+        <a>Sipster</a>
+        <p>Finde deine Bar</p>
       </div>
     </div>
   );
