@@ -17,11 +17,16 @@ const ProfilePage = () => {
     setPoints(newPoints);
 
     if (newPoints <= 30) {
-      setTitle('Trinkanfänger');
-    } else if (newPoints <= 60) {
-      setTitle('Trinkgelehrter');
-    } else {
-      setTitle('Trinkexperte');
+        setTitle('Schluck-Novize');
+      } else if (newPoints <= 60) {
+        setTitle('Baronaut');
+      } else {
+        setTitle('Tresengott');
+      }
+
+    const savedColor = localStorage.getItem('backgroundColor');
+    if (savedColor) {
+      document.body.style.backgroundColor = savedColor;
     }
   }, []);
 
@@ -37,6 +42,11 @@ const ProfilePage = () => {
 
   const handleBack = () => {
     navigate(-1); // Navigiert zur vorherigen Seite
+  };
+
+  const handleColorChange = (color) => {
+    document.body.style.backgroundColor = color;
+    localStorage.setItem('backgroundColor', color);
   };
 
   return (

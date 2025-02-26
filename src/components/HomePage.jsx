@@ -9,10 +9,30 @@ const HomePage = () => {
     return saved ? JSON.parse(saved) : {};
   });
   const [pointsAnimation, setPointsAnimation] = useState({});
+  const [title, setTitle] = useState('Trinkanfänger');
 
   useEffect(() => {
     localStorage.setItem('checkedBars', JSON.stringify(checkedBars));
   }, [checkedBars]);
+
+  useEffect(() => {
+    const savedColor = localStorage.getItem('backgroundColor');
+    if (savedColor) {
+      document.body.style.backgroundColor = savedColor;
+    }
+
+    const savedCheckedBars = JSON.parse(localStorage.getItem('checkedBars')) || {};
+    const checkedCount = Object.values(savedCheckedBars).filter(Boolean).length;
+    const newPoints = checkedCount * 20;
+
+    if (newPoints <= 30) {
+      setTitle('Trinkanfänger');
+    } else if (newPoints <= 60) {
+      setTitle('Trinkgelehrter');
+    } else {
+      setTitle('Trinkexperte');
+    }
+  }, []);
 
   const handleBack = () => {
     navigate(-1); // Navigiert zur vorherigen Seite
@@ -35,14 +55,27 @@ const HomePage = () => {
       ...prevState,
       [barName]: isChecked,
     }));
-    setPointsAnimation({ [barName]: isChecked ? '20 Bar Punkte' : '-20 Bar Punkte' });
+    setPointsAnimation({ [barName]: isChecked ? '20 Punkte' : '-20 Punkte' });
     setTimeout(() => {
       setPointsAnimation({});
     }, 2000); // Punkte für 1 Sekunde anzeigen
+
+    // Aktualisiere den Trinkstatus
+    const checkedCount = Object.values({ ...checkedBars, [barName]: isChecked }).filter(Boolean).length;
+    const newPoints = checkedCount * 20;
+
+    if (newPoints <= 30) {
+      setTitle('Schluck-Novize');
+    } else if (newPoints <= 60) {
+      setTitle('Baronaut');
+    } else {
+      setTitle('Tresengott');
+    }
   };
 
   const handleColorChange = (color) => {
     document.body.style.backgroundColor = color;
+    localStorage.setItem('backgroundColor', color);
   };
 
   return (
@@ -52,8 +85,8 @@ const HomePage = () => {
           <img src="/src/assets/shaker.png" alt="Magic" className="loading-icon" />
         </div>
       )}
-      <h2>Mode</h2>
       <div className="icon-bar">
+        <h2>Mode</h2>
         <img src="/src/assets/boy.png" alt="Boy" className="icon" onClick={() => handleColorChange('cornflowerblue')} />
         <img src="/src/assets/girl.png" alt="Girl" className="icon" onClick={() => handleColorChange('pink')} />
         <img src="/src/assets/hide.png" alt="Close" className="icon" onClick={() => handleColorChange('rgb(234,236,235)')} />
@@ -61,7 +94,7 @@ const HomePage = () => {
       <a className="back-link" onClick={handleBack}>←</a>
       <div className="profile-section" onClick={handleProfileClick}>
         <img className="profile-pic" src="/src/assets/profilbild.jpeg" alt="Profilbild" />
-        <h2> Hi Benutzername</h2>
+        <h2> Hi Benutzername ({title}) </h2>
       </div>
       <input type="text" className="search-field" placeholder="Suche..." />
       <div className="category">
