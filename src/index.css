@@ -248,6 +248,10 @@ button:focus-visible {
     justify-content: center;
 }
 
+.profile-page{
+  padding-bottom: 130px;
+}
+
 .profile-page .progress-bar {
   width: 100%;
   background-color: #ccc;

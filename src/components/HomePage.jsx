@@ -177,8 +177,8 @@ const HomePage = () => {
         </div>
         <div className="nav-right">
           <div onClick={handleMagicClick}>
-            <img src="/src/assets/shaker.png" alt="Magic Bier" className="nav-icon" style={{ width: '24px', height: '24px' }} />
-            <p>Magic Bier</p>
+            <img src="/src/assets/shaker.png" alt="Magic" className="nav-icon" style={{ width: '24px', height: '24px' }} />
+            <p>Magic</p>
           </div>
         </div>
       </div>
