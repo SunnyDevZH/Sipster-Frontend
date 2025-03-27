@@ -10,10 +10,12 @@ const HomePage = () => {
   });
   const [pointsAnimation, setPointsAnimation] = useState({});
   const [title, setTitle] = useState('Schluck-Novize');
-  const [username, setUsername] = useState(''); // Neuer State für den Benutzernamen
+  const [username, setUsername] = useState('');
+  const [bars, setBars] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
-    // Benutzernamen aus dem Local Storage laden
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
       setUsername(storedUsername);
@@ -35,21 +37,37 @@ const HomePage = () => {
     } else {
       setTitle('Tresengott');
     }
+
+    const fetchBars = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/restaurants/');
+        if (response.ok) {
+          const data = await response.json();
+          setBars(data);
+        } else {
+          console.error('Fehler beim Abrufen der Bars:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Fehler beim Abrufen der Bars:', error);
+      }
+    };
+
+    fetchBars();
   }, []);
 
   const handleBack = () => {
-    navigate(-1); // Navigiert zur vorherigen Seite
+    navigate(-1);
   };
 
   const handleProfileClick = () => {
-    navigate('/profile'); // Navigiert zur Profilseite
+    navigate('/profile');
   };
 
   const handleMagicClick = () => {
     setShowAnimation(true);
     setTimeout(() => {
       setShowAnimation(false);
-    }, 5000); // Animation für 5 Sekunden anzeigen
+    }, 5000);
   };
 
   const handleCheckClick = (barName) => {
@@ -61,7 +79,7 @@ const HomePage = () => {
     setPointsAnimation({ [barName]: isChecked ? '20 Punkte' : '-20 Punkte' });
     setTimeout(() => {
       setPointsAnimation({});
-    }, 2000); // Punkte für 1 Sekunde anzeigen
+    }, 2000);
 
     const checkedCount = Object.values({ ...checkedBars, [barName]: isChecked }).filter(Boolean).length;
     const newPoints = checkedCount * 20;
@@ -80,6 +98,12 @@ const HomePage = () => {
     localStorage.setItem('backgroundColor', color);
   };
 
+  const filteredBars = bars.filter((bar) => {
+    const matchesSearch = bar.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory ? bar.category === selectedCategory : true;
+    return matchesSearch && matchesCategory;
+  });
+
   return (
     <div className="page home-page">
       {showAnimation && (
@@ -96,68 +120,73 @@ const HomePage = () => {
       <a className="back-link" onClick={handleBack}>←</a>
       <div className="profile-section" onClick={handleProfileClick}>
         <img className="profile-pic" src="/src/assets/profilbild.jpeg" alt="Profilbild" />
-        <h2> Hi {username} ({title}) </h2> {/* Benutzername anzeigen */}
+        <h2> Hi {username} ({title}) </h2>
       </div>
-      <input type="text" className="search-field" placeholder="Suche..." />
+      <input
+        type="text"
+        className="search-field"
+        placeholder="Suche..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
       <div className="category">
         <h2>Kategorie:</h2>
         <div className="category-items">
-          <div className="category-item-wrapper">
-            <div className="category-item">
-              <img src="/src/assets/cocktail.png" alt="Kategorie 1" className="category-icon" />
+          <div className="category-item-wrapper" onClick={() => setSelectedCategory('Drinks')}>
+            <div className={`category-item ${selectedCategory === 'Drinks' ? 'active' : ''}`}>
+              <img src="/src/assets/cocktail.png" alt="Drinks" className="category-icon" />
             </div>
             <p>Drinks</p>
           </div>
-          <div className="category-item-wrapper">
-            <div className="category-item">
-              <img src="/src/assets/champagne-glass.png" alt="Kategorie 1" className="category-icon" />
+          <div className="category-item-wrapper" onClick={() => setSelectedCategory('Schaumwein')}>
+            <div className={`category-item ${selectedCategory === 'Schaumwein' ? 'active' : ''}`}>
+              <img src="/src/assets/champagne-glass.png" alt="Schaumwein" className="category-icon" />
             </div>
             <p>Schaumwein</p>
           </div>
-          <div className="category-item-wrapper">
-            <div className="category-item">
-              <img src="/src/assets/wine-bottle.png" alt="Kategorie 1" className="category-icon" />
+          <div className="category-item-wrapper" onClick={() => setSelectedCategory('Wein')}>
+            <div className={`category-item ${selectedCategory === 'Wein' ? 'active' : ''}`}>
+              <img src="/src/assets/wine-bottle.png" alt="Wein" className="category-icon" />
             </div>
             <p>Wein</p>
           </div>
-          <div className="category-item-wrapper">
-            <div className="category-item">
-              <img src="/src/assets/restaurant.png" alt="Kategorie 1" className="category-icon" />
-            </div>
-            <p>Apero</p>
-          </div>
-          <div className="category-item-wrapper">
-            <div className="category-item">
-              <img src="/src/assets/music.png" alt="Kategorie 1" className="category-icon" />
-            </div>
-            <p>Live Musik</p>
-          </div>
-          <div className="category-item-wrapper">
-            <div className="category-item">
-              <img src="/src/assets/beer2.png" alt="Kategorie 1" className="category-icon" />
+          <div className="category-item-wrapper" onClick={() => setSelectedCategory('Bier')}>
+            <div className={`category-item ${selectedCategory === 'Bier' ? 'active' : ''}`}>
+              <img src="/src/assets/beer2.png" alt="Bier" className="category-icon" />
             </div>
             <p>Bier</p>
           </div>
-          {/* Weitere Kategorien können hier hinzugefügt werden */}
+          <div className="category-item-wrapper" onClick={() => setSelectedCategory('Apero')}>
+            <div className={`category-item ${selectedCategory === 'Apero' ? 'active' : ''}`}>
+              <img src="/src/assets/restaurant.png" alt="Apero" className="category-icon" />
+            </div>
+            <p>Apero</p>
+          </div>
+          <div className="category-item-wrapper" onClick={() => setSelectedCategory('Live Musik')}>
+            <div className={`category-item ${selectedCategory === 'Live Musik' ? 'active' : ''}`}>
+              <img src="/src/assets/music.png" alt="Live Musik" className="category-icon" />
+            </div>
+            <p>Live Musik</p>
+          </div>
+          <div className="category-item-wrapper" onClick={() => setSelectedCategory('')}>
+            <div className={`category-item ${selectedCategory === '' ? 'active' : ''}`}>
+              <img src="/src/assets/alle.png" alt="Alle" className="category-icon" />
+            </div>
+            <p>Alle</p>
+          </div>
         </div>
       </div>
       <div className="bar-container">
-        {['Bar Name 1', 'Bar Name 2', 'Bar Name 3', 'Bar Name 4', 'Bar Name 5'].map((barName) => (
-          <div key={barName}>
-            <h2>{barName}</h2>
+        {filteredBars.map((bar) => (
+          <div key={bar.id}>
+            <h2>{bar.name}</h2>
             <div className="bar-details">
               <div className="bar-image-wrapper">
-                <img src="/src/assets/bar.jpg" alt="Bar" onClick={() => handleCheckClick(barName)} />
-                <span className="price-tag">$10</span>
-                <img
-                  src={checkedBars[barName] ? '/src/assets/check.png' : '/src/assets/checked.png'}
-                  alt="Check"
-                  className="check-icon"
-                />
-                {pointsAnimation[barName] && <p className="points-animation">{pointsAnimation[barName]}</p>}
+                {/* Bild-URL korrekt verwenden */}
+                <img src={bar.image} alt={bar.name} />
+                <span className="price-tag">{bar.price}</span>
               </div>
-              <p>Info: Dies ist ein Beispieltext für die Bar.</p>
-              <p>Adresse: Beispielstraße 1, 12345 Beispielstadt</p>
+              <p>{bar.description}</p>
             </div>
           </div>
         ))}

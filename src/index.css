@@ -367,6 +367,13 @@ button:focus-visible {
   height: 30px;
 }
 
+.category-item.active {
+  border: 2px solid #007bff; /* Blaue Umrandung */
+  background-color: rgba(0, 123, 255, 0.1); /* Leicht blaue Hintergrundfarbe */
+  border-radius: 8px; /* Abgerundete Ecken */
+  transition: all 0.3s ease; /* Sanfter Übergang */
+}
+
 .category-item-wrapper p {
   margin-top: 5px;
   font-size: 12px 
