@@ -10,12 +10,15 @@ const HomePage = () => {
   });
   const [pointsAnimation, setPointsAnimation] = useState({});
   const [title, setTitle] = useState('Schluck-Novize');
+  const [username, setUsername] = useState(''); // Neuer State für den Benutzernamen
 
   useEffect(() => {
-    localStorage.setItem('checkedBars', JSON.stringify(checkedBars));
-  }, [checkedBars]);
+    // Benutzernamen aus dem Local Storage laden
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
 
-  useEffect(() => {
     const savedColor = localStorage.getItem('backgroundColor');
     if (savedColor) {
       document.body.style.backgroundColor = savedColor;
@@ -26,13 +29,12 @@ const HomePage = () => {
     const newPoints = checkedCount * 20;
 
     if (newPoints <= 30) {
-        setTitle('Schluck-Novize');
-      } else if (newPoints <= 60) {
-        setTitle('Baronaut');
-      } else {
-        setTitle('Tresengott');
-      }
-
+      setTitle('Schluck-Novize');
+    } else if (newPoints <= 60) {
+      setTitle('Baronaut');
+    } else {
+      setTitle('Tresengott');
+    }
   }, []);
 
   const handleBack = () => {
@@ -65,14 +67,12 @@ const HomePage = () => {
     const newPoints = checkedCount * 20;
 
     if (newPoints <= 30) {
-        setTitle('Schluck-Novize');
-      } else if (newPoints <= 60) {
-        setTitle('Baronaut');
-      } else {
-        setTitle('Tresengott');
-      }
-
-    
+      setTitle('Schluck-Novize');
+    } else if (newPoints <= 60) {
+      setTitle('Baronaut');
+    } else {
+      setTitle('Tresengott');
+    }
   };
 
   const handleColorChange = (color) => {
@@ -96,7 +96,7 @@ const HomePage = () => {
       <a className="back-link" onClick={handleBack}>←</a>
       <div className="profile-section" onClick={handleProfileClick}>
         <img className="profile-pic" src="/src/assets/profilbild.jpeg" alt="Profilbild" />
-        <h2> Hi Benutzername ({title}) </h2>
+        <h2> Hi {username} ({title}) </h2> {/* Benutzername anzeigen */}
       </div>
       <input type="text" className="search-field" placeholder="Suche..." />
       <div className="category">

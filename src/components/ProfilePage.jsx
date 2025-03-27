@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getItem, removeItem } from '../utils/localStorageHelper';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('Benutzername');
-  const [email, setEmail] = useState('benutzer@example.com');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [birthdate, setBirthdate] = useState('2000-01-01');
   const [password, setPassword] = useState('********');
   const [points, setPoints] = useState(0);
   const [title, setTitle] = useState('Trinkanfänger');
 
   useEffect(() => {
+    // Lade Benutzerdaten aus Local Storage oder einer API
+    const storedUsername = getItem('username');
+    const storedEmail = getItem('email');
+    if (storedUsername) setUsername(storedUsername);
+    if (storedEmail) setEmail(storedEmail);
+
     const savedCheckedBars = JSON.parse(localStorage.getItem('checkedBars')) || {};
     const checkedCount = Object.values(savedCheckedBars).filter(Boolean).length;
     const newPoints = checkedCount * 20;
     setPoints(newPoints);
 
     if (newPoints <= 30) {
-        setTitle('Schluck-Novize');
-      } else if (newPoints <= 60) {
-        setTitle('Baronaut');
-      } else {
-        setTitle('Tresengott');
-      }
+      setTitle('Schluck-Novize');
+    } else if (newPoints <= 60) {
+      setTitle('Baronaut');
+    } else {
+      setTitle('Tresengott');
+    }
 
     const savedColor = localStorage.getItem('backgroundColor');
     if (savedColor) {
@@ -31,8 +38,13 @@ const ProfilePage = () => {
   }, []);
 
   const handleLogout = () => {
-    // Füge hier die Logout-Logik hinzu
-    navigate('/login');
+    // Entferne Tokens und Benutzerdaten aus Local Storage
+    removeItem('accessToken');
+    removeItem('refreshToken');
+    removeItem('username');
+    removeItem('email');
+    alert('Erfolgreich ausgeloggt!');
+    navigate('/login'); // Weiterleitung zur Login-Seite
   };
 
   const handleSaveChanges = () => {
@@ -69,7 +81,11 @@ const ProfilePage = () => {
         <div className="input-group">
           <label>Name:</label>
           <div className="input-wrapper">
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
             <button className="save-button">
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
@@ -78,7 +94,11 @@ const ProfilePage = () => {
         <div className="input-group">
           <label>Email:</label>
           <div className="input-wrapper">
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <button className="save-button">
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
@@ -87,7 +107,11 @@ const ProfilePage = () => {
         <div className="input-group">
           <label>Geburtsdatum:</label>
           <div className="input-wrapper">
-            <input type="date" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} />
+            <input
+              type="date"
+              value={birthdate}
+              onChange={(e) => setBirthdate(e.target.value)}
+            />
             <button className="save-button">
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
@@ -96,7 +120,11 @@ const ProfilePage = () => {
         <div className="input-group">
           <label>Passwort:</label>
           <div className="input-wrapper">
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <button className="save-button">
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
