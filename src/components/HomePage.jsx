@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [profilePic, setProfilePic] = useState('/src/assets/neutral.png'); // Standard-Profilbild
+  const [backgroundColor, setBackgroundColor] = useState('rgb(234,236,235)'); // Standard-Hintergrundfarbe
   const [showAnimation, setShowAnimation] = useState(false);
   const [checkedBars, setCheckedBars] = useState(() => {
     const saved = localStorage.getItem('checkedBars');
@@ -31,7 +33,7 @@ const HomePage = () => {
     const newPoints = checkedCount * 20;
 
     if (newPoints <= 30) {
-      setTitle('Schluck-Novize');
+      setTitle('Trink-Anfänger'); // Titel aktualisiert
     } else if (newPoints <= 60) {
       setTitle('Baronaut');
     } else {
@@ -53,6 +55,25 @@ const HomePage = () => {
     };
 
     fetchBars();
+  }, []);
+
+  useEffect(() => {
+    // Lade Profilbild und Hintergrundfarbe aus Local Storage
+    const storedProfilePic = localStorage.getItem('profilePic');
+    const savedColor = localStorage.getItem('backgroundColor');
+
+    if (storedProfilePic) {
+      setProfilePic(storedProfilePic); // Profilbild aus Local Storage setzen
+    } else {
+      localStorage.setItem('profilePic', '/src/assets/neutral.png'); // Standard-Profilbild speichern
+    }
+
+    if (savedColor) {
+      setBackgroundColor(savedColor); // Hintergrundfarbe aus Local Storage setzen
+      document.body.style.backgroundColor = savedColor; // Hintergrundfarbe anwenden
+    } else {
+      localStorage.setItem('backgroundColor', 'rgb(234,236,235)'); // Standard-Hintergrundfarbe speichern
+    }
   }, []);
 
   const handleBack = () => {
@@ -85,7 +106,7 @@ const HomePage = () => {
     const newPoints = checkedCount * 20;
 
     if (newPoints <= 30) {
-      setTitle('Schluck-Novize');
+      setTitle('Trink-Anfänger'); // Titel aktualisiert
     } else if (newPoints <= 60) {
       setTitle('Baronaut');
     } else {
@@ -93,14 +114,20 @@ const HomePage = () => {
     }
   };
 
-  const handleColorChange = (color) => {
+  const handleColorChange = (color, profileImage) => {
+    // Aktualisiere die Hintergrundfarbe und das Profilbild
     document.body.style.backgroundColor = color;
     localStorage.setItem('backgroundColor', color);
+    localStorage.setItem('profilePic', profileImage);
+    setBackgroundColor(color);
+    setProfilePic(profileImage);
   };
 
   const filteredBars = bars.filter((bar) => {
     const matchesSearch = bar.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory ? bar.category === selectedCategory : true;
+    const matchesCategory = selectedCategory
+      ? bar.categories.some((category) => category.name === selectedCategory)
+      : true;
     return matchesSearch && matchesCategory;
   });
 
@@ -113,14 +140,29 @@ const HomePage = () => {
       )}
       <div className="icon-bar">
         <h2>Display Mode:</h2>
-        <img src="/src/assets/boy.png" alt="Boy" className="icon" onClick={() => handleColorChange('cornflowerblue')} />
-        <img src="/src/assets/girl.png" alt="Girl" className="icon" onClick={() => handleColorChange('pink')} />
-        <img src="/src/assets/hide.png" alt="Close" className="icon" onClick={() => handleColorChange('rgb(234,236,235)')} />
+        <img
+          src="/src/assets/boy.png"
+          alt="Boy"
+          className="icon"
+          onClick={() => handleColorChange('cornflowerblue', '/src/assets/men.png')}
+        />
+        <img
+          src="/src/assets/girl.png"
+          alt="Girl"
+          className="icon"
+          onClick={() => handleColorChange('pink', '/src/assets/woman.png')}
+        />
+        <img
+          src="/src/assets/hide.png"
+          alt="Close"
+          className="icon"
+          onClick={() => handleColorChange('rgb(234,236,235)', '/src/assets/neutral.png')}
+        />
       </div>
       <a className="back-link" onClick={handleBack}>←</a>
       <div className="profile-section" onClick={handleProfileClick}>
-        <img className="profile-pic" src="/src/assets/profilbild.jpeg" alt="Profilbild" />
-        <h2> Hi {username} ({title}) </h2>
+        <img className="profile-pic" src={profilePic} alt="Profilbild" /> {/* Dynamisches Profilbild */}
+        <h2> Hello {username} ({title}) </h2>
       </div>
       <input
         type="text"

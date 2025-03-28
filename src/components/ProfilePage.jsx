@@ -10,13 +10,23 @@ const ProfilePage = () => {
   const [password, setPassword] = useState('********');
   const [points, setPoints] = useState(0);
   const [title, setTitle] = useState('Trinkanfänger');
+  const [profilePic, setProfilePic] = useState('/src/assets/neutral.png'); // Standard-Profilbild
+  const [backgroundColor, setBackgroundColor] = useState('rgb(234,236,235)'); // Standard-Hintergrundfarbe
 
   useEffect(() => {
     // Lade Benutzerdaten aus Local Storage oder einer API
     const storedUsername = getItem('username');
     const storedEmail = getItem('email');
+    const storedProfilePic = localStorage.getItem('profilePic'); // Profilbild aus Local Storage laden
+    const savedColor = localStorage.getItem('backgroundColor'); // Hintergrundfarbe aus Local Storage laden
+
     if (storedUsername) setUsername(storedUsername);
     if (storedEmail) setEmail(storedEmail);
+    if (storedProfilePic) setProfilePic(storedProfilePic); // Profilbild setzen
+    if (savedColor) {
+      setBackgroundColor(savedColor); // Hintergrundfarbe aus Local Storage setzen
+      document.body.style.backgroundColor = savedColor; // Hintergrundfarbe anwenden
+    }
 
     const savedCheckedBars = JSON.parse(localStorage.getItem('checkedBars')) || {};
     const checkedCount = Object.values(savedCheckedBars).filter(Boolean).length;
@@ -24,16 +34,11 @@ const ProfilePage = () => {
     setPoints(newPoints);
 
     if (newPoints <= 30) {
-      setTitle('Schluck-Novize');
+      setTitle('Trink-Anfänger'); // Titel aktualisiert
     } else if (newPoints <= 60) {
       setTitle('Baronaut');
     } else {
       setTitle('Tresengott');
-    }
-
-    const savedColor = localStorage.getItem('backgroundColor');
-    if (savedColor) {
-      document.body.style.backgroundColor = savedColor;
     }
   }, []);
 
@@ -58,7 +63,7 @@ const ProfilePage = () => {
 
   const handleColorChange = (color) => {
     document.body.style.backgroundColor = color;
-    localStorage.setItem('backgroundColor', color);
+    localStorage.setItem('backgroundColor', color); // Hintergrundfarbe im Local Storage speichern
   };
 
   return (
@@ -66,7 +71,7 @@ const ProfilePage = () => {
       <a className="back-link" onClick={handleBack}>←</a>
       <div className="profile-section">
         <div className="profile-pic-wrapper">
-          <img className="profile-pic" src="/src/assets/profilbild.jpeg" alt="Profilbild" />
+          <img className="profile-pic" src={profilePic} alt="Profilbild" /> {/* Dynamisches Profilbild */}
           <button className="add-photo-button">+</button>
         </div>
         <p>{username}</p>
