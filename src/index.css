@@ -2,6 +2,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,6 +24,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   background-color: rgb(234,236,235); 
+  min-height: 100vh;
 }
 
 h1 {
@@ -520,31 +522,65 @@ button:focus-visible {
   font-size: 12px;
 }
 
-.icon-bar {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  gap: 10px;
+.icon-div{
+  position: absolute; /* Positioniere das Element relativ zum nächsten positionierten Vorfahren */
+  top: 10px; /* Abstand von oben */
+  right: 10px; /* Abstand von rechts */
+  display: flex; /* Behalte die Flexbox-Eigenschaften */
+  flex-direction: column; /* Ordne den Inhalt vertikal an */
+  align-items: center; /* Zentriere den Inhalt horizontal */
+
 
   h2{
     font-size: 12px;
-    display: flex;
-    margin: 0;
   }
 
-  img{
-    padding-right: 5px;
-    padding-top: 5px;
-  }
+}
+
+.icon-bar {
+  display: flex; /* Icons horizontal ausrichten */
+  flex-direction: row; /* Horizontale Anordnung */
+  justify-content: center; /* Zentriere die Icons */
+  align-items: center; /* Vertikal zentrieren */
+  gap: 10px; /* Abstand zwischen den Icons */
+  
+ 
+}
+
+.icon {
+  background-color: white;
+
+  padding: 4px; /* Entfernt das Padding */
+  border-radius: 50%; /* Entfernt den Kreis */
+  cursor: pointer;
+  display: flex;
+  justify-content: center; /* Zentriere den Inhalt horizontal */
+  align-items: center; /* Zentriere den Inhalt vertikal */
+  transition: all 0.3s ease; /* Sanfter Übergang */
+}
+
+
+.icon.active {
+  border: 2px solid #007bff; /* Blaue Umrandung für den aktiven Zustand */
+  background-color: rgba(0, 123, 255, 0.1); /* Leicht blaue Hintergrundfarbe */
+  border-radius: 0; /* Aktiver Zustand bleibt quadratisch */
 }
 
 .icon {
   width: 24px !important;
   height: 24px !important;
   cursor: pointer;
+  
 }
 
 
+.icon.active {
+  border: 1px solid #007bff; /* Blaue Umrandung */
+  background-color: rgba(0, 123, 255, 0.1); /* Leicht blaue Hintergrundfarbe */
+  border-radius: 8px; /* Abgerundete Ecken */
+  transition: all 0.3s ease; /* Sanfter Übergang */
+  padding: 5px;
+}
 
 .loading-animation {
   position: fixed;

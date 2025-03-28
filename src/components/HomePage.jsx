@@ -16,6 +16,7 @@ const HomePage = () => {
   const [bars, setBars] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedDisplayMode, setSelectedDisplayMode] = useState(''); // State für den ausgewählten Display-Modus
 
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
@@ -76,10 +77,6 @@ const HomePage = () => {
     }
   }, []);
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   const handleProfileClick = () => {
     navigate('/profile');
   };
@@ -114,13 +111,14 @@ const HomePage = () => {
     }
   };
 
-  const handleColorChange = (color, profileImage) => {
+  const handleColorChange = (color, profileImage, mode) => {
     // Aktualisiere die Hintergrundfarbe und das Profilbild
     document.body.style.backgroundColor = color;
     localStorage.setItem('backgroundColor', color);
     localStorage.setItem('profilePic', profileImage);
     setBackgroundColor(color);
     setProfilePic(profileImage);
+    setSelectedDisplayMode(mode); // Setze den ausgewählten Display-Modus
   };
 
   const filteredBars = bars.filter((bar) => {
@@ -138,31 +136,35 @@ const HomePage = () => {
           <img src="/src/assets/shaker.png" alt="Magic" className="loading-icon" />
         </div>
       )}
-      <div className="icon-bar">
+      <div className="icon-div">
         <h2>Display Mode:</h2>
+        <div className="icon-bar">
         <img
           src="/src/assets/boy.png"
           alt="Boy"
-          className="icon"
-          onClick={() => handleColorChange('cornflowerblue', '/src/assets/men.png')}
+          className={`icon ${selectedDisplayMode === 'boy' ? 'active' : ''}`}
+          onClick={() => handleColorChange('antiquewhite', '/src/assets/men.png', 'boy')}
         />
         <img
           src="/src/assets/girl.png"
           alt="Girl"
-          className="icon"
-          onClick={() => handleColorChange('pink', '/src/assets/woman.png')}
+          className={`icon ${selectedDisplayMode === 'girl' ? 'active' : ''}`}
+          onClick={() => handleColorChange('pink', '/src/assets/woman.png', 'girl')}
         />
         <img
           src="/src/assets/hide.png"
-          alt="Close"
-          className="icon"
-          onClick={() => handleColorChange('rgb(234,236,235)', '/src/assets/neutral.png')}
+          alt="Neutral"
+          className={`icon ${selectedDisplayMode === 'neutral' ? 'active' : ''}`}
+          onClick={() => handleColorChange('rgb(234,236,235)', '/src/assets/neutral.png', 'neutral')}
         />
       </div>
-      <a className="back-link" onClick={handleBack}>←</a>
+
+        </div>
+       
+      
       <div className="profile-section" onClick={handleProfileClick}>
         <img className="profile-pic" src={profilePic} alt="Profilbild" /> {/* Dynamisches Profilbild */}
-        <h2> Hello {username} ({title}) </h2>
+        <h2> Hallo {username} ({title}) </h2>
       </div>
       <input
         type="text"
