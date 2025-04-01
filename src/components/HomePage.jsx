@@ -17,6 +17,7 @@ const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedDisplayMode, setSelectedDisplayMode] = useState(''); // State für den ausgewählten Display-Modus
+  const [selectedBar, setSelectedBar] = useState(null); // State für das Modal
 
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
@@ -222,19 +223,53 @@ const HomePage = () => {
       </div>
       <div className="bar-container">
         {filteredBars.map((bar) => (
-          <div key={bar.id}>
+          <div key={bar.id} onClick={() => setSelectedBar(bar)}>
             <h2>{bar.name}</h2>
             <div className="bar-details">
               <div className="bar-image-wrapper">
                 {/* Bild-URL korrekt verwenden */}
                 <img src={bar.image} alt={bar.name} />
-                <span className="price-tag">{bar.price}</span>
+                <span className="price-tag">{bar.price}</span> {/* Preisanzeige im Bild */}
               </div>
               <p>{bar.description}</p>
             </div>
           </div>
         ))}
       </div>
+      {selectedBar && (
+        <div className="modal-overlay" onClick={() => setSelectedBar(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="close-icon" onClick={() => setSelectedBar(null)}>✖</div>
+            
+              <div className="image-wrapper">
+                <img src={selectedBar.image} alt={selectedBar.name} />
+                <span className="price-tag">{selectedBar.price}</span>
+              </div>
+              <h2>{selectedBar.name}</h2>
+              <p>{selectedBar.description}</p>
+              {selectedBar.address && (
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedBar.address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="google-maps-link"
+                >
+                  Auf Google Maps ansehen
+                </a>
+              )}
+           
+            <div className="status-container" onClick={() => handleCheckClick(selectedBar.name)}>
+              <div className="status-circle">
+                <img
+                  src={checkedBars[selectedBar.name] ? '/src/assets/cool.png' : '/src/assets/lacheln.png'}
+                  alt={checkedBars[selectedBar.name] ? 'Cool' : 'Lächeln'}
+                />
+              </div>
+              <p>{checkedBars[selectedBar.name] ? 'Kenne ich schon' : 'Kenne ich noch nicht'}</p>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="navigation-bar">
         <div className="nav-left">
           <a href="/home">

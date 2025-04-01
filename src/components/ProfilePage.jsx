@@ -6,7 +6,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [birthdate, setBirthdate] = useState('2000-01-01');
+  const [birthdate, setBirthdate] = useState('');
   const [password, setPassword] = useState('');
   const [points, setPoints] = useState(0);
   const [title, setTitle] = useState('Trinkanfänger');
@@ -37,7 +37,7 @@ const ProfilePage = () => {
           const data = await response.json();
           setUsername(data.username);
           setEmail(data.email);
-          setBirthdate(data.birthdate || '2000-01-01');
+          setBirthdate(data.birthdate);
         } else {
           console.error('Fehler beim Abrufen des Profils:', response.statusText);
         }

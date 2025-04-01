@@ -36,7 +36,7 @@ const RegisterPage = () => {
       if (response.ok) {
         const data = await response.json();
         alert('Registrierung erfolgreich!');
-        navigate('/home'); // Weiterleitung zur Startseite
+        navigate('/login'); 
       } else {
         const errorData = await response.json();
         alert(`Fehler: ${errorData.error || 'Unbekannter Fehler'}`);

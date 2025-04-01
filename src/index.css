@@ -467,6 +467,58 @@ button:focus-visible {
   margin-left: -100px;
 }
 
+.switch-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
 .navigation-bar {
   position: fixed;
   bottom: 0;
@@ -629,6 +681,160 @@ button:focus-visible {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Abdunkelung */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.modal-content img {
+  width: 100%; /* Bild füllt die Breite des Containers */
+  height: auto; /* Höhe wird proportional angepasst */
+  max-height: 400px; /* Erhöhe die maximale Höhe */
+  object-fit: cover; /* Schneidet das Bild zu, falls nötig */
+  border-radius: 10px; /* Abgerundete Ecken */
+  transition: transform 0.3s ease-in-out; /* Sanfter Übergang */
+}
+
+
+.modal-content .price-tag {
+  position: absolute;
+  width: 20px;
+  bottom: 30px; /* Abstand vom unteren Rand des Bildes */
+  right: 10px; /* Abstand vom rechten Rand des Bildes */
+  background-color: rgba(0, 0, 0, 0.7); /* Halbtransparenter Hintergrund */
+  color: white; /* Textfarbe */
+  padding: 5px 10px; /* Innenabstand */
+  border-radius: 5px; /* Abgerundete Ecken */
+  font-size: 14px; /* Schriftgröße */
+  font-weight: bold; /* Fettschrift */
+  z-index: 2; /* Stellt sicher, dass die Preisanzeige über dem Bild liegt */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.bar-container div:hover {
+  cursor: pointer;
+  transform: scale(1.02); /* Leichter Zoom-Effekt */
+  transition: transform 0.2s ease-in-out;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: white; /* Hintergrundfarbe ähnlich wie die divs */
+  color: black; /* Textfarbe */
+  font-size: 18px; /* Größe des "X" */
+  font-weight: bold;
+  width: 30px; /* Breite des Symbols */
+  height: 30px; /* Höhe des Symbols */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%; /* Rundes Design */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Schatten ähnlich wie die divs */
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.close-icon:hover {
+  transform: scale(1.1); /* Leichter Zoom-Effekt beim Hover */
+  background-color: rgba(0, 0, 0, 0.1); /* Leicht abgedunkelter Hintergrund beim Hover */
+}
+
+.google-maps-link {
+  display: block;
+  margin-top: 10px;
+  color: #007bff; /* Blau für den Link */
+  text-decoration: underline;
+  font-size: 14px;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.google-maps-link:hover {
+  color: #0056b3; /* Dunkleres Blau beim Hover */
+}
+
+.status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.status-container:hover {
+  transform: scale(1.1); /* Leichter Zoom-Effekt beim Hover */
+}
+
+.status-circle {
+  width: 60px; /* Kleinere Breite des Kreises */
+  height: 60px; /* Kleinere Höhe des Kreises */
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 5px; /* Weniger Abstand zum Text */
+}
+
+.status-circle img {
+  width: 40px; /* Kleinere Breite des Bildes */
+  height: 40px; /* Kleinere Höhe des Bildes */
+}
+
+.status-container p {
+  font-size: 12px; /* Schriftgröße auf maximal 12px setzen */
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.image-wrapper {
+  margin-top: 30px;
+  position: relative; /* Ermöglicht die absolute Positionierung der Preisanzeige */
+  width: 100%;
+  max-height: 400px; /* Begrenze die maximale Höhe des Bildes */
+  overflow: hidden; /* Verhindert, dass Inhalte außerhalb des Containers angezeigt werden */
+  border-radius: 10px; /* Abgerundete Ecken */
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Schneidet das Bild zu, falls nötig */
+  border-radius: 10px; /* Abgerundete Ecken */
 }
 
 @media (prefers-color-scheme: light) {
