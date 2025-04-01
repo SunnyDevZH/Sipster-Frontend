@@ -7,21 +7,75 @@ const ProfilePage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [birthdate, setBirthdate] = useState('2000-01-01');
-  const [password, setPassword] = useState('********');
+  const [password, setPassword] = useState('');
   const [points, setPoints] = useState(0);
   const [title, setTitle] = useState('Trinkanfänger');
   const [profilePic, setProfilePic] = useState('/src/assets/neutral.png'); // Standard-Profilbild
   const [backgroundColor, setBackgroundColor] = useState('rgb(234,236,235)'); // Standard-Hintergrundfarbe
 
   useEffect(() => {
-    // Lade Benutzerdaten aus Local Storage oder einer API
-    const storedUsername = getItem('username');
-    const storedEmail = getItem('email');
+    // Lade Benutzerdaten aus dem Backend
+    const fetchProfile = async () => {
+      try {
+        let accessToken = localStorage.getItem('accessToken');
+        console.log("Access Token:", accessToken);
+
+        // Überprüfe, ob der Token abgelaufen ist
+        if (!accessToken) {
+          await refreshAccessToken();
+          accessToken = localStorage.getItem('accessToken');
+        }
+
+        const response = await fetch('http://127.0.0.1:8000/api/user/me/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUsername(data.username);
+          setEmail(data.email);
+          setBirthdate(data.birthdate);
+        } else {
+          console.error('Fehler beim Abrufen des Profils:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Fehler beim Abrufen des Profils:', error);
+      }
+    };
+
+    // Funktion zum Erneuern des Access-Tokens
+    const refreshAccessToken = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/user/token/refresh/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            refresh: localStorage.getItem('refreshToken'),
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem('accessToken', data.access);
+        } else {
+          console.error('Fehler beim Erneuern des Tokens:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Fehler beim Erneuern des Tokens:', error);
+      }
+    };
+
+    fetchProfile();
+
     const storedProfilePic = localStorage.getItem('profilePic'); // Profilbild aus Local Storage laden
     const savedColor = localStorage.getItem('backgroundColor'); // Hintergrundfarbe aus Local Storage laden
 
-    if (storedUsername) setUsername(storedUsername);
-    if (storedEmail) setEmail(storedEmail);
     if (storedProfilePic) setProfilePic(storedProfilePic); // Profilbild setzen
     if (savedColor) {
       setBackgroundColor(savedColor); // Hintergrundfarbe aus Local Storage setzen
@@ -52,9 +106,33 @@ const ProfilePage = () => {
     navigate('/login'); // Weiterleitung zur Login-Seite
   };
 
-  const handleSaveChanges = () => {
-    // Füge hier die Logik zum Speichern der Änderungen hinzu
-    alert('Änderungen gespeichert');
+  const handleSaveChanges = async () => {
+    // Speichere die Änderungen im Backend
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/me/', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          birthdate,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        alert('Änderungen erfolgreich gespeichert!');
+      } else {
+        console.error('Fehler beim Speichern der Änderungen:', response.statusText);
+        alert('Fehler beim Speichern der Änderungen.');
+      }
+    } catch (error) {
+      console.error('Fehler beim Speichern der Änderungen:', error);
+      alert('Fehler beim Speichern der Änderungen.');
+    }
   };
 
   const handleBack = () => {
@@ -91,7 +169,7 @@ const ProfilePage = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-            <button className="save-button">
+            <button className="save-button" onClick={handleSaveChanges}>
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
           </div>
@@ -104,7 +182,7 @@ const ProfilePage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <button className="save-button">
+            <button className="save-button" onClick={handleSaveChanges}>
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
           </div>
@@ -117,7 +195,7 @@ const ProfilePage = () => {
               value={birthdate}
               onChange={(e) => setBirthdate(e.target.value)}
             />
-            <button className="save-button">
+            <button className="save-button" onClick={handleSaveChanges}>
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
           </div>
@@ -130,7 +208,7 @@ const ProfilePage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="save-button">
+            <button className="save-button" onClick={handleSaveChanges}>
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
           </div>
