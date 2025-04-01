@@ -702,8 +702,11 @@ input:checked + .slider:before {
   border-radius: 8px;
   width: 80%;
   max-width: 500px;
+  max-height: 90vh; /* Begrenze die maximale Höhe des Modals */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
+  text-align: left; /* Links-Ausrichtung */
+  overflow-y: auto; /* Aktiviert vertikales Scrollen, falls der Inhalt zu groß ist */
 }
 
 .modal-content img {
@@ -715,6 +718,16 @@ input:checked + .slider:before {
   transition: transform 0.3s ease-in-out; /* Sanfter Übergang */
 }
 
+.modal-content p {
+  margin: 10px 0; /* Abstand zwischen den Absätzen */
+  font-size: 14px;
+  color: #333;
+}
+
+.modal-content iframe {
+  margin-top: 10px; /* Abstand über dem Google Maps-Ausschnitt */
+  border-radius: 8px; /* Abgerundete Ecken */
+}
 
 .modal-content .price-tag {
   position: absolute;
@@ -771,6 +784,17 @@ input:checked + .slider:before {
 }
 
 .google-maps-link {
+  position:absolute; 
+  top: 10px;
+  right: 20px;
+  display: inline-block;
+  width: 40px !important; /* Breite des Icons */
+  height: 40px !important; /* Höhe des Icons */
+  margin-top: 10px;
+  text-align: center;
+}
+
+.google-maps-link {
   display: block;
   margin-top: 10px;
   color: #007bff; /* Blau für den Link */
@@ -782,6 +806,16 @@ input:checked + .slider:before {
 
 .google-maps-link:hover {
   color: #0056b3; /* Dunkleres Blau beim Hover */
+}
+
+.google-maps-icon {
+  width: 40px !important; /* Breite des Icons */
+  height: 40px !important; /* Höhe des Icons */
+  transition: transform 0.2s ease-in-out;
+}
+
+.google-maps-icon:hover {
+  transform: scale(1.1); /* Leichter Zoom-Effekt beim Hover */
 }
 
 .status-container {
@@ -798,8 +832,8 @@ input:checked + .slider:before {
 }
 
 .status-circle {
-  width: 60px; /* Kleinere Breite des Kreises */
-  height: 60px; /* Kleinere Höhe des Kreises */
+  width: 50px; /* Kleinere Breite des Kreises */
+  height: 50px; /* Kleinere Höhe des Kreises */
   border-radius: 50%;
   background-color: #f0f0f0;
   display: flex;
@@ -810,8 +844,8 @@ input:checked + .slider:before {
 }
 
 .status-circle img {
-  width: 40px; /* Kleinere Breite des Bildes */
-  height: 40px; /* Kleinere Höhe des Bildes */
+  width: 30px; /* Kleinere Breite des Bildes */
+  height: 30px; /* Kleinere Höhe des Bildes */
 }
 
 .status-container p {
@@ -835,6 +869,16 @@ input:checked + .slider:before {
   height: auto;
   object-fit: cover; /* Schneidet das Bild zu, falls nötig */
   border-radius: 10px; /* Abgerundete Ecken */
+}
+
+.confetti-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Verhindert, dass das Canvas Klicks blockiert */
+  z-index: 10; /* Überlagert den Modal-Inhalt */
 }
 
 @media (prefers-color-scheme: light) {

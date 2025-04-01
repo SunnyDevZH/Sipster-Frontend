@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import confetti from 'canvas-confetti';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -109,6 +110,23 @@ const HomePage = () => {
       setTitle('Baronaut');
     } else {
       setTitle('Tresengott');
+    }
+
+    // Konfetti auslösen, wenn "Kenne ich schon" ausgewählt wird
+    if (isChecked) {
+      triggerConfetti();
+    }
+  };
+
+  const triggerConfetti = () => {
+    const canvas = document.getElementById('confetti-canvas');
+    if (canvas) {
+      const confettiInstance = confetti.create(canvas, { resize: true });
+      confettiInstance({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }, // Startpunkt des Konfettis
+      });
     }
   };
 
@@ -239,24 +257,55 @@ const HomePage = () => {
       {selectedBar && (
         <div className="modal-overlay" onClick={() => setSelectedBar(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <h2>{selectedBar.name}</h2>
+         
             <div className="close-icon" onClick={() => setSelectedBar(null)}>✖</div>
+            {/* Canvas für Konfetti */}
+            <canvas id="confetti-canvas" className="confetti-canvas"></canvas>
             
               <div className="image-wrapper">
                 <img src={selectedBar.image} alt={selectedBar.name} />
                 <span className="price-tag">{selectedBar.price}</span>
-              </div>
-              <h2>{selectedBar.name}</h2>
-              <p>{selectedBar.description}</p>
-              {selectedBar.address && (
+                {selectedBar.address && (
                 <a
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedBar.address)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="google-maps-link"
                 >
-                  Auf Google Maps ansehen
+                  <img
+                    src="/src/assets/google-maps.png"
+                    alt="Google Maps"
+                    className="google-maps-icon"
+                  />
                 </a>
               )}
+              </div>
+              
+              <p>{selectedBar.description}</p>
+              {selectedBar.address && (
+                <p><strong>Adresse:</strong> {selectedBar.address}</p>
+              )}
+              {selectedBar.phone && (
+                <p><strong>Telefon:</strong> {selectedBar.phone}</p>
+              )}
+              {selectedBar.opening_hours && (
+                <p><strong>Öffnungszeiten:</strong> {selectedBar.opening_hours}</p>
+              )}
+              {selectedBar.website && (
+                <p>
+                  <strong>Website:</strong>{' '}
+                  <a
+                    href={selectedBar.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="website-link"
+                  >
+                    {selectedBar.website}
+                  </a>
+                </p>
+              )}
+              
            
             <div className="status-container" onClick={() => handleCheckClick(selectedBar.name)}>
               <div className="status-circle">
