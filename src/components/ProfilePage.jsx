@@ -18,7 +18,6 @@ const ProfilePage = () => {
     const fetchProfile = async () => {
       try {
         let accessToken = localStorage.getItem('accessToken');
-        console.log("Access Token:", accessToken);
 
         // Überprüfe, ob der Token abgelaufen ist
         if (!accessToken) {
@@ -109,7 +108,7 @@ const ProfilePage = () => {
   const handleSaveChanges = async () => {
     // Speichere die Änderungen im Backend
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/me/', {
+      const response = await fetch('http://127.0.0.1:8000/api/user/me/', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
