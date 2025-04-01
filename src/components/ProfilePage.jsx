@@ -37,7 +37,7 @@ const ProfilePage = () => {
           const data = await response.json();
           setUsername(data.username);
           setEmail(data.email);
-          setBirthdate(data.birthdate);
+          setBirthdate(data.birthdate || '2000-01-01');
         } else {
           console.error('Fehler beim Abrufen des Profils:', response.statusText);
         }
@@ -108,18 +108,34 @@ const ProfilePage = () => {
   const handleSaveChanges = async () => {
     // Speichere die Änderungen im Backend
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/user/me/', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-        body: JSON.stringify({
+      let accessToken = localStorage.getItem('accessToken');
+
+        // Überprüfe, ob der Token abgelaufen ist
+        if (!accessToken) {
+          await refreshAccessToken();
+          accessToken = localStorage.getItem('accessToken');
+        }
+        console.log('Daten, die gesendet werden:', {
           username,
           email,
           birthdate,
           password,
-        }),
+        });
+      
+      const body = {
+        username,
+        email,
+        birthdate: birthdate || '2000-01-01', // Fallback auf Standardwert
+        password,
+      };
+
+      const response = await fetch('http://127.0.0.1:8000/api/user/me/', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(body),
       });
 
       if (response.ok) {
@@ -205,6 +221,7 @@ const ProfilePage = () => {
             <input
               type="password"
               value={password}
+              placeholder="Neues Passwort eingeben"
               onChange={(e) => setPassword(e.target.value)}
             />
             <button className="save-button" onClick={handleSaveChanges}>
