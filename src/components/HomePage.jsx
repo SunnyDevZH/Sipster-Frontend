@@ -20,6 +20,7 @@ const HomePage = () => {
   const [selectedDisplayMode, setSelectedDisplayMode] = useState(''); // State für den ausgewählten Display-Modus
   const [selectedBar, setSelectedBar] = useState(null); // State für das Modal
   const [isMagicPopup, setIsMagicPopup] = useState(false); // Neuer State
+  const [points, setPoints] = useState(0); // Punkte-Status hinzufügen
 
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
@@ -100,21 +101,23 @@ const HomePage = () => {
   };
 
   const handleCheckClick = (barName) => {
-    const isChecked = !checkedBars[barName];
-    setCheckedBars((prevState) => ({
-      ...prevState,
-      [barName]: isChecked,
-    }));
-    setPointsAnimation({ [barName]: isChecked ? '20 Punkte' : '-20 Punkte' });
-    setTimeout(() => {
-      setPointsAnimation({});
-    }, 2000);
+    const isChecked = !checkedBars[barName]; // Toggle den Status
+    setCheckedBars((prevState) => {
+      const updatedBars = { ...prevState, [barName]: isChecked };
+      localStorage.setItem('checkedBars', JSON.stringify(updatedBars)); // Speichere den Status im LocalStorage
+      return updatedBars;
+    });
 
-    const checkedCount = Object.values({ ...checkedBars, [barName]: isChecked }).filter(Boolean).length;
+    // Punkte berechnen und speichern
+    const savedCheckedBars = JSON.parse(localStorage.getItem('checkedBars')) || {};
+    const checkedCount = Object.values({ ...savedCheckedBars, [barName]: isChecked }).filter(Boolean).length;
     const newPoints = checkedCount * 20;
+    setPoints(newPoints);
+    localStorage.setItem('points', newPoints); // Punkte im LocalStorage speichern
 
+    // Titel basierend auf den Punkten aktualisieren
     if (newPoints <= 30) {
-      setTitle('Trink-Anfänger'); // Titel aktualisiert
+      setTitle('Trink-Anfänger');
     } else if (newPoints <= 60) {
       setTitle('Baronaut');
     } else {

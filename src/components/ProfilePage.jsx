@@ -14,81 +14,29 @@ const ProfilePage = () => {
   const [backgroundColor, setBackgroundColor] = useState('rgb(234,236,235)'); // Standard-Hintergrundfarbe
 
   useEffect(() => {
-    // Lade Benutzerdaten aus dem Backend
-    const fetchProfile = async () => {
-      try {
-        let accessToken = localStorage.getItem('accessToken');
+    // Lade Benutzerdaten aus dem LocalStorage
+    const storedUsername = localStorage.getItem('username');
+    const storedEmail = localStorage.getItem('email');
+    const storedBirthdate = localStorage.getItem('birthdate');
+    const storedProfilePic = localStorage.getItem('profilePic');
+    const savedColor = localStorage.getItem('backgroundColor');
 
-        // Überprüfe, ob der Token abgelaufen ist
-        if (!accessToken) {
-          await refreshAccessToken();
-          accessToken = localStorage.getItem('accessToken');
-        }
-
-        const response = await fetch('http://127.0.0.1:8000/api/user/me/', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setUsername(data.username);
-          setEmail(data.email);
-          setBirthdate(data.birthdate);
-        } else {
-          console.error('Fehler beim Abrufen des Profils:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Fehler beim Abrufen des Profils:', error);
-      }
-    };
-
-    // Funktion zum Erneuern des Access-Tokens
-    const refreshAccessToken = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/user/token/refresh/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            refresh: localStorage.getItem('refreshToken'),
-          }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          localStorage.setItem('accessToken', data.access);
-        } else {
-          console.error('Fehler beim Erneuern des Tokens:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Fehler beim Erneuern des Tokens:', error);
-      }
-    };
-
-    fetchProfile();
-
-    const storedProfilePic = localStorage.getItem('profilePic'); // Profilbild aus Local Storage laden
-    const savedColor = localStorage.getItem('backgroundColor'); // Hintergrundfarbe aus Local Storage laden
-
-    if (storedProfilePic) setProfilePic(storedProfilePic); // Profilbild setzen
+    if (storedUsername) setUsername(storedUsername);
+    if (storedEmail) setEmail(storedEmail);
+    if (storedBirthdate) setBirthdate(storedBirthdate);
+    if (storedProfilePic) setProfilePic(storedProfilePic);
     if (savedColor) {
-      setBackgroundColor(savedColor); // Hintergrundfarbe aus Local Storage setzen
-      document.body.style.backgroundColor = savedColor; // Hintergrundfarbe anwenden
+      setBackgroundColor(savedColor);
+      document.body.style.backgroundColor = savedColor;
     }
 
-    const savedCheckedBars = JSON.parse(localStorage.getItem('checkedBars')) || {};
-    const checkedCount = Object.values(savedCheckedBars).filter(Boolean).length;
-    const newPoints = checkedCount * 20;
-    setPoints(newPoints);
+    // Punkte aus LocalStorage laden
+    const savedPoints = parseInt(localStorage.getItem('points'), 10) || 0;
+    setPoints(savedPoints);
 
-    if (newPoints <= 30) {
-      setTitle('Trink-Anfänger'); // Titel aktualisiert
-    } else if (newPoints <= 60) {
+    if (savedPoints <= 30) {
+      setTitle('Trink-Anfänger');
+    } else if (savedPoints <= 60) {
       setTitle('Baronaut');
     } else {
       setTitle('Tresengott');
@@ -106,22 +54,22 @@ const ProfilePage = () => {
   };
 
   const handleSaveChanges = async () => {
-    // Speichere die Änderungen im Backend
     try {
       let accessToken = localStorage.getItem('accessToken');
 
-        // Überprüfe, ob der Token abgelaufen ist
-        if (!accessToken) {
-          await refreshAccessToken();
-          accessToken = localStorage.getItem('accessToken');
-        }
-        console.log('Daten, die gesendet werden:', {
-          username,
-          email,
-          birthdate,
-          password,
-        });
-      
+      // Überprüfe, ob der Token abgelaufen ist
+      if (!accessToken) {
+        await refreshAccessToken();
+        accessToken = localStorage.getItem('accessToken');
+      }
+
+      console.log('Daten, die gesendet werden:', {
+        username,
+        email,
+        birthdate,
+        password,
+      });
+
       const body = {
         username,
         email,
@@ -139,6 +87,11 @@ const ProfilePage = () => {
       });
 
       if (response.ok) {
+        // Speichere die aktualisierten Werte im LocalStorage
+        localStorage.setItem('username', username);
+        localStorage.setItem('email', email);
+        localStorage.setItem('birthdate', birthdate);
+
         alert('Änderungen erfolgreich gespeichert!');
       } else {
         console.error('Fehler beim Speichern der Änderungen:', response.statusText);

@@ -37,6 +37,12 @@ const LoginPage = () => {
           const userData = await userResponse.json();
           setItem('username', userData.username);
           setItem('email', userData.email);
+
+          if (userData.birthdate) {
+            setItem('birthdate', userData.birthdate);
+          }
+
+
           alert('Login erfolgreich!');
           navigate('/home');
         } else {
