@@ -120,7 +120,7 @@ const ProfilePage = () => {
           <img className="profile-pic" src={profilePic} alt="Profilbild" /> {/* Dynamisches Profilbild */}
           <button className="add-photo-button">+</button>
         </div>
-        <p>{username}</p>
+        <p>{username.charAt(0).toUpperCase() + username.slice(1).toLowerCase()}</p>
         <h2>{title}</h2>
         <p>Um mehr Punkte zu erhalten, hacke die Bars ab, <br /> die du schon kennst!</p>
         <div className="progress-bar">

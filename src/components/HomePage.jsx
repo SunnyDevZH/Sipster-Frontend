@@ -194,8 +194,9 @@ const HomePage = () => {
        
       
       <div className="profile-section" onClick={handleProfileClick}>
+        <h2>{title}</h2>
         <img className="profile-pic" src={profilePic} alt="Profilbild" /> {/* Dynamisches Profilbild */}
-        <h2> Hallo {username} ({title}) </h2>
+        <h2> Hallo {username.charAt(0).toUpperCase() + username.slice(1).toLowerCase()} </h2>
       </div>
       <input
         type="text"
