@@ -273,7 +273,7 @@ const HomePage = () => {
 
             {/* Überschrift nur anzeigen, wenn es ein Magic-Popup ist */}
             {isMagicPopup && (
-            <h3 className="magic-header">Wie wäre es mit:</h3>)}
+            <h2 className="magic-header">Wie wäre es mit:</h2>)}
       
           <h2>{selectedBar.name}</h2>
          
@@ -325,15 +325,17 @@ const HomePage = () => {
               )}
               
            
-            <div className="status-container" onClick={() => handleCheckClick(selectedBar.name)}>
-              <div className="status-circle">
-                <img
-                  src={checkedBars[selectedBar.name] ? '/src/assets/cool.png' : '/src/assets/lacheln.png'}
-                  alt={checkedBars[selectedBar.name] ? 'Cool' : 'Lächeln'}
-                />
+            {!isMagicPopup && (
+              <div className="status-container" onClick={() => handleCheckClick(selectedBar.name)}>
+                <div className="status-circle">
+                  <img
+                    src={checkedBars[selectedBar.name] ? '/src/assets/cool.png' : '/src/assets/lacheln.png'}
+                    alt={checkedBars[selectedBar.name] ? 'Cool' : 'Lächeln'}
+                  />
+                </div>
+                <p>{checkedBars[selectedBar.name] ? 'Kenne ich schon' : 'Kenne ich noch nicht'}</p>
               </div>
-              <p>{checkedBars[selectedBar.name] ? 'Kenne ich schon' : 'Kenne ich noch nicht'}</p>
-            </div>
+            )}
           </div>
         </div>
       )}
