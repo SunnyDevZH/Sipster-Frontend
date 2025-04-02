@@ -19,6 +19,7 @@ const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedDisplayMode, setSelectedDisplayMode] = useState(''); // State für den ausgewählten Display-Modus
   const [selectedBar, setSelectedBar] = useState(null); // State für das Modal
+  const [isMagicPopup, setIsMagicPopup] = useState(false); // Neuer State
 
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
@@ -85,9 +86,17 @@ const HomePage = () => {
 
   const handleMagicClick = () => {
     setShowAnimation(true);
+
     setTimeout(() => {
       setShowAnimation(false);
-    }, 5000);
+
+      // Wähle eine zufällige Bar aus der Liste
+      if (bars.length > 0) {
+        const randomBar = bars[Math.floor(Math.random() * bars.length)];
+        setSelectedBar(randomBar); // Öffne das Popup mit der zufälligen Bar
+        setIsMagicPopup(true); // Markiere das Popup als Magic-Popup
+      }
+    }, 5000); // Animation dauert 5 Sekunden
   };
 
   const handleCheckClick = (barName) => {
@@ -255,18 +264,29 @@ const HomePage = () => {
         ))}
       </div>
       {selectedBar && (
-        <div className="modal-overlay" onClick={() => setSelectedBar(null)}>
+        <div className="modal-overlay" onClick={() => { setSelectedBar(null); setIsMagicPopup(false); }}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+
+            {/* Überschrift nur anzeigen, wenn es ein Magic-Popup ist */}
+            {isMagicPopup && (
+            <h3 className="magic-header">Wie wäre es mit:</h3>)}
+      
           <h2>{selectedBar.name}</h2>
          
-            <div className="close-icon" onClick={() => setSelectedBar(null)}>✖</div>
+            <div className="close-icon" onClick={() => { setSelectedBar(null); setIsMagicPopup(false);}}>✖</div>
             {/* Canvas für Konfetti */}
             <canvas id="confetti-canvas" className="confetti-canvas"></canvas>
             
               <div className="image-wrapper">
                 <img src={selectedBar.image} alt={selectedBar.name} />
                 <span className="price-tag">{selectedBar.price}</span>
-                {selectedBar.address && (
+              </div>
+              
+              <p>{selectedBar.description}</p>
+              {selectedBar.address && (
+                <p><strong>Adresse:</strong> {selectedBar.address}</p>
+              )}
+              {selectedBar.address && (
                 <a
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedBar.address)}`}
                   target="_blank"
@@ -279,12 +299,6 @@ const HomePage = () => {
                     className="google-maps-icon"
                   />
                 </a>
-              )}
-              </div>
-              
-              <p>{selectedBar.description}</p>
-              {selectedBar.address && (
-                <p><strong>Adresse:</strong> {selectedBar.address}</p>
               )}
               {selectedBar.phone && (
                 <p><strong>Telefon:</strong> {selectedBar.phone}</p>
