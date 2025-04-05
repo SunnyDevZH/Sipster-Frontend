@@ -68,29 +68,41 @@ const ProfilePage = () => {
         email,
         birthdate,
         password,
+        profilePic,
       });
 
-      const body = {
-        username,
-        email,
-        birthdate: birthdate || '2000-01-01', // Fallback auf Standardwert
-        password,
-      };
+      // FormData erstellen, um das Profilbild und andere Daten zu senden
+      const formData = new FormData();
+      formData.append('username', username);
+      formData.append('email', email);
+      formData.append('birthdate', birthdate || '2000-01-01'); // Fallback auf Standardwert
+      if (password) {
+        formData.append('password', password);
+      }
+      if (profilePic instanceof File) {
+        formData.append('profile_picture', profilePic); // Profilbild hinzufügen
+      }
 
       const response = await fetch('http://127.0.0.1:8000/api/user/me/', {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`, // Authentifizierung
         },
-        body: JSON.stringify(body),
+        body: formData, // FormData senden
       });
 
       if (response.ok) {
+        const data = await response.json();
+
         // Speichere die aktualisierten Werte im LocalStorage
-        localStorage.setItem('username', username);
-        localStorage.setItem('email', email);
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('email', data.email);
         localStorage.setItem('birthdate', birthdate);
+        if (data.profile_picture) {
+          console.log('Profilbild-URL:', data.profile_picture); // Debugging
+          localStorage.setItem('profilePic', data.profile_picture);
+          setProfilePic(data.profile_picture); // Aktualisiere das Profilbild im State
+        }
 
         alert('Änderungen erfolgreich gespeichert!');
       } else {
@@ -118,7 +130,28 @@ const ProfilePage = () => {
       <div className="profile-section">
         <div className="profile-pic-wrapper">
           <img className="profile-pic" src={profilePic} alt="Profilbild" /> {/* Dynamisches Profilbild */}
-          <button className="add-photo-button">+</button>
+          <button
+            className="add-photo-button"
+            onClick={() => document.getElementById('profile-pic-input').click()}
+          >
+            +
+          </button>
+          <input
+            id="profile-pic-input"
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }} // Versteckt das Input-Feld
+            onChange={(e) => {
+              if (e.target.files && e.target.files[0]) {
+                const selectedFile = e.target.files[0];
+                console.log('Ausgewähltes Bild:', selectedFile); // Debugging
+                setProfilePic(selectedFile); // Setze das ausgewählte Bild
+                setTimeout(() => {
+                  handleSaveChanges(); // Rufe handleSaveChanges verzögert auf
+                }, 0);
+              }
+            }}
+          />
         </div>
         <p>{username.charAt(0).toUpperCase() + username.slice(1).toLowerCase()}</p>
         <h2>{title}</h2>
