@@ -148,7 +148,7 @@ const HomePage = () => {
     localStorage.setItem('backgroundColor', color);
     localStorage.setItem('profilePic', profileImage);
     setBackgroundColor(color);
-    setProfilePic(profileImage);
+    setProfilePic(profileImage); // Aktualisiere den State mit dem neuen Bild
     setSelectedDisplayMode(mode); // Setze den ausgewählten Display-Modus
   };
 

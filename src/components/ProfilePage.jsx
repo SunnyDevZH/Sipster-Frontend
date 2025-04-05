@@ -55,6 +55,11 @@ const ProfilePage = () => {
 
   const handleSaveChanges = async (selectedFile = null) => {
     try {
+      // Falls ein Event-Objekt übergeben wird, ignoriere es
+      if (selectedFile && selectedFile.preventDefault) {
+        selectedFile = null;
+      }
+
       let accessToken = localStorage.getItem('accessToken');
 
       // Überprüfe, ob der Token abgelaufen ist
@@ -142,7 +147,6 @@ const ProfilePage = () => {
             accept="image/*"
             style={{ display: 'none' }}
             onChange={(e) => {
-              console.log('onChange ausgelöst'); // Debugging
               if (e.target.files && e.target.files[0]) {
                 const selectedFile = e.target.files[0];
                 console.log('Ausgewähltes Bild:', selectedFile); // Debugging
