@@ -53,7 +53,7 @@ const ProfilePage = () => {
     navigate('/login'); // Weiterleitung zur Login-Seite
   };
 
-  const handleSaveChanges = async () => {
+  const handleSaveChanges = async (selectedFile = null) => {
     try {
       let accessToken = localStorage.getItem('accessToken');
 
@@ -68,7 +68,7 @@ const ProfilePage = () => {
         email,
         birthdate,
         password,
-        profilePic,
+        profilePic: selectedFile || profilePic, // Verwende das ausgewählte Bild, falls vorhanden
       });
 
       // FormData erstellen, um das Profilbild und andere Daten zu senden
@@ -79,8 +79,8 @@ const ProfilePage = () => {
       if (password) {
         formData.append('password', password);
       }
-      if (profilePic instanceof File) {
-        formData.append('profile_picture', profilePic); // Profilbild hinzufügen
+      if (selectedFile || profilePic instanceof File) {
+        formData.append('profile_picture', selectedFile || profilePic); // Profilbild hinzufügen
       }
 
       const response = await fetch('http://127.0.0.1:8000/api/user/me/', {
@@ -140,15 +140,14 @@ const ProfilePage = () => {
             id="profile-pic-input"
             type="file"
             accept="image/*"
-            style={{ display: 'none' }} // Versteckt das Input-Feld
+            style={{ display: 'none' }}
             onChange={(e) => {
+              console.log('onChange ausgelöst'); // Debugging
               if (e.target.files && e.target.files[0]) {
                 const selectedFile = e.target.files[0];
                 console.log('Ausgewähltes Bild:', selectedFile); // Debugging
                 setProfilePic(selectedFile); // Setze das ausgewählte Bild
-                setTimeout(() => {
-                  handleSaveChanges(); // Rufe handleSaveChanges verzögert auf
-                }, 0);
+                handleSaveChanges(selectedFile); // Übergebe das ausgewählte Bild direkt
               }
             }}
           />
