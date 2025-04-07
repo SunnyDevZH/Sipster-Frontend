@@ -73,7 +73,7 @@ const ProfilePage = () => {
         email,
         birthdate,
         password,
-        profilePic: selectedFile || profilePic, // Verwende das ausgewählte Bild, falls vorhanden
+        profilePic: profilePic, // Verwende das ausgewählte Bild, falls vorhanden
       });
 
       // FormData erstellen, um das Profilbild und andere Daten zu senden
@@ -84,6 +84,8 @@ const ProfilePage = () => {
       if (password) {
         formData.append('password', password);
       }
+
+      
       if (selectedFile || profilePic instanceof File) {
         formData.append('profile_picture', selectedFile || profilePic); // Profilbild hinzufügen
       }
