@@ -34,6 +34,57 @@ Stelle sicher, dass die folgenden Tools auf deinem System installiert sind:
    git clone <repository-url>
    cd Sipster-Frontend
 
-## Installation
+2. **Abhängigkeiten installieren**
 
-![Alt-Text](assets/sips.png)
+    npm install
+
+3. **Entwicklungsserver starten:**
+
+    npm run dev (Vite)
+
+## Doku Projekt FFHS:
+
+**Meilenstein 1 Freitag, 14. Februar 2025**
+
+PDF mit:
+
+- BESCHREIBUNG DER APPLIKATION UND IHRES FUNKTIONSUMFANGS
+- FUNKTIONALE UND NICHTFUNKTIONALE ANFORDERUNGEN
+- PROJEKTSTRUKTUR: ROADMAP UND GROBE AUFGABEN
+- BEWERTUNG DER APPLIKATION HINSICHTLICH ALLGEMEINER PROJEKTANFORDERUNGEN
+- DESIGN-GRUNDBAUSTEINE
+- WIREFRAMES FÜR DAS FRONTEND
+- DIE TOOLS UND TECHNOLOGIEN
+
+**Meilenstein 2 Freitag, 28. März 2025**
+
+Video: Loom 
+
+Erledigt:
+- Login funktion mit JWT
+- Frontend soweit mit React geschrieben
+- Backend mit Django eingerichtet
+- API-Daten bereit stellen (Restaurants, User usw.)
+- Frontend mit Backend verknüpfen
+
+**Meilenstein 3  2025**
+
+Video: Loom 
+
+Erledigt:
+- Profilbild hochladen
+- Daten per PUT vom User auf dem Backend ändern
+- Magic funktion implementieren
+- Display Mode update
+- Logout
+
+**Meilenstein 4  2025**
+
+Video: Loom 
+
+Erledigt:
+- Code aufräumen
+- Code Doku erstellen
+- Testen
+- 
+- 
