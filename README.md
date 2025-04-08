@@ -1,6 +1,6 @@
 # Sipster
 
-Willkommen bei **Sipster** – der ultimativen App für Bar-Liebhaber! Mit Sipster kannst du die besten Bars in deiner Umgebung entdecken, dein persönliches Profil verwalten und mit dem magische Bier Button eine zufällige Bar anzeigen lassen. Egal, ob du ein Trinkanfänger oder ein erfahrener Bar-Hopper bist, Sipster bietet dir alles, was du brauchst, um die besten Trink-Erlebnisse zu genießen.
+Willkommen bei **Sipster** – der ultimativen App für Bar-Liebhaber! Mit Sipster kannst du die besten Bars in deiner Umgebung entdecken, dein persönliches Profil verwalten und mit dem Magic Button eine zufällige Bar anzeigen lassen. Egal, ob du ein Trinkanfänger oder ein erfahrener Bar-Hopper bist, Sipster bietet dir alles, was du brauchst, um die besten Trink-Erlebnisse zu genießen.
 
 ## Features
 
@@ -15,6 +15,16 @@ Willkommen bei **Sipster** – der ultimativen App für Bar-Liebhaber! Mit Sipst
 - **Vite:** Ein blitzschneller Entwicklungsserver und Build-Tool, das die Entwicklung von modernen Webanwendungen vereinfacht.
 - **React Router:** Eine Bibliothek, die die Navigation in React-Anwendungen nahtlos und intuitiv gestaltet.
 - **CSS:** Für die Gestaltung und das Layout der Anwendung, um ein ansprechendes und benutzerfreundliches Design zu gewährleisten.
+
+## Voraussetzungen
+
+Stelle sicher, dass die folgenden Tools auf deinem System installiert sind:
+
+- **Node.js** (Version 16 oder höher)
+- **npm** (Node Package Manager) oder **yarn**
+- **Git** (für das Klonen des Repositories)
+- Ein moderner Webbrowser (z. B. Google Chrome, Firefox oder Edge)
+
 
 ## Installation
 
