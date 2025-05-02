@@ -198,6 +198,12 @@ const HomePage = () => {
         <img className="profile-pic" src={profilePic} alt="Profilbild" /> {/* Dynamisches Profilbild */}
         <h2> Hallo {username.charAt(0).toUpperCase() + username.slice(1).toLowerCase()} </h2>
       </div>
+
+      {/* Anzahl besuchter Bars */}
+      <div className="visited-bars">
+        <h2>Du kennst schon {Object.values(checkedBars).filter(Boolean).length} Bars!</h2>
+      </div>
+
       <input
         type="text"
         className="search-field"
@@ -253,19 +259,30 @@ const HomePage = () => {
         </div>
       </div>
       <div className="bar-container">
-        {filteredBars.map((bar) => (
-          <div key={bar.id} onClick={() => setSelectedBar(bar)}>
-            <h2>{bar.name}</h2>
-            <div className="bar-details">
-              <div className="bar-image-wrapper">
-                {/* Bild-URL korrekt verwenden */}
-                <img src={bar.image} alt={bar.name} />
-                <span className="price-tag">{bar.price}</span> {/* Preisanzeige im Bild */}
+        {filteredBars.length > 0 ? (
+          filteredBars.map((bar) => (
+            <div key={bar.id} onClick={() => setSelectedBar(bar)}>
+              <h2>{bar.name}</h2>
+              <div className="bar-details">
+                <div className="bar-image-wrapper">
+                  {/* Bild-URL korrekt verwenden */}
+                  <img src={bar.image} alt={bar.name} />
+                  <span className="price-tag">{bar.price}</span> {/* Preisanzeige im Bild */}
+                </div>
+                <p>{bar.description}</p>
               </div>
-              <p>{bar.description}</p>
             </div>
+          ))
+        ) : (
+          <div className="no-bars">
+            <img
+              src="/src/assets/nothing.png" // Pfad zu deinem Platzhalterbild
+              alt="Keine Bars verfügbar"
+              style={{ width: '50px', height: '50px', marginBottom: '10px' }}
+            />
+            <p>Es konnte leider keine Bar geladen werden, da sie im Backend (Admin) noch hinzugefügt werden muss.</p>
           </div>
-        ))}
+        )}
       </div>
       {selectedBar && (
         <div className="modal-overlay" onClick={() => { setSelectedBar(null); setIsMagicPopup(false); }}>
@@ -288,9 +305,8 @@ const HomePage = () => {
               
               <p>{selectedBar.description}</p>
               {selectedBar.address && (
-                <p><strong>Adresse:</strong> {selectedBar.address}</p>
-              )}
-              {selectedBar.address && (
+                <p className='adress'><strong>Adresse:</strong> {selectedBar.address}
+                {selectedBar.address && (
                 <a
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedBar.address)}`}
                   target="_blank"
@@ -303,6 +319,9 @@ const HomePage = () => {
                     className="google-maps-icon"
                   />
                 </a>
+              )}
+                
+                </p>
               )}
               {selectedBar.phone && (
                 <p><strong>Telefon:</strong> {selectedBar.phone}</p>
@@ -323,17 +342,13 @@ const HomePage = () => {
                   </a>
                 </p>
               )}
-              
-           
             {!isMagicPopup && (
-              <div className="status-container" onClick={() => handleCheckClick(selectedBar.name)}>
-                <div className="status-circle">
-                  <img
-                    src={checkedBars[selectedBar.name] ? '/src/assets/cool.png' : '/src/assets/lacheln.png'}
-                    alt={checkedBars[selectedBar.name] ? 'Cool' : 'Lächeln'}
-                  />
+              <div className="status-container">
+                <p>Kennst du diese Bar schon?</p>
+                <div className={`switch ${checkedBars[selectedBar.name] ? 'on' : 'off'}`} onClick={() => handleCheckClick(selectedBar.name)}>
+                  <div className="slider">
+                  </div>
                 </div>
-                <p>{checkedBars[selectedBar.name] ? 'Kenne ich schon' : 'Kenne ich noch nicht'}</p>
               </div>
             )}
           </div>
