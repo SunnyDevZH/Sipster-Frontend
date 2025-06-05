@@ -213,6 +213,7 @@ button:focus-visible {
   height: 120px !important; /* Verkleinere das Profilbild */
   border-radius: 50%;
   margin-bottom: 10px;
+  object-fit: cover;
 }
 
 .profile-page .profile-section {
@@ -344,6 +345,32 @@ button:focus-visible {
   flex-direction: column;
   align-items: flex-start; /* Links ausrichten */
 }
+
+.popup-message {
+  border: none;
+  border-radius: 8px;
+  padding: 18px 28px;
+  margin-top: 20px;
+  z-index: 9999;
+  font-weight: bold;
+  font-size: 9px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: default;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  max-width: 90%;
+  white-space: normal;
+  word-break: break-word;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  opacity: 1;
+  animation: slideUpPopup 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.popup-message.green { background: green; }
+.popup-message.red { background: red; }
 
 
 .category-items {
@@ -946,5 +973,16 @@ button:focus-visible {
   
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@keyframes slideUpPopup {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

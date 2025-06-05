@@ -9,17 +9,24 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isChecked, setIsChecked] = useState(false);
 
+  // Status für Popups
+  const [popup, setPopup] = useState({ show: false, message: '', color: '' });
+
+  const showPopup = (message, color) => {
+    setPopup({ show: true, message, color });
+    setTimeout(() => setPopup({ show: false, message: '', color: '' }), 4000);
+  };
+
   const handleRegister = async () => {
     if (password !== confirmPassword) {
-      alert('Die Passwörter stimmen nicht überein.');
+      showPopup('Die Passwörter stimmen nicht überein.', 'red');
       return;
     }
     if (!isChecked) {
-      alert('Bitte stimmen Sie den Datenschutzbestimmungen zu.');
+      showPopup('Bitte stimmen Sie den Datenschutzbestimmungen zu.', 'red');
       return;
     }
 
-    // Daten an das Backend senden
     try {
       const response = await fetch('http://127.0.0.1:8000/api/user/register/', {
         method: 'POST',
@@ -34,21 +41,20 @@ const RegisterPage = () => {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        alert('Registrierung erfolgreich!');
-        navigate('/login'); 
+        showPopup('Registrierung erfolgreich!', 'green');
+        setTimeout(() => navigate('/login'), 1500);
       } else {
         const errorData = await response.json();
-        alert(`Fehler: ${errorData.error || 'Unbekannter Fehler'}`);
+        showPopup(`Fehler: ${errorData.error || 'Unbekannter Fehler'}`, 'red');
       }
     } catch (error) {
       console.error('Fehler bei der Registrierung:', error);
-      alert('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
+      showPopup('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.', 'red');
     }
   };
 
   const handleBack = () => {
-    navigate(-1); // Navigiert zur vorherigen Seite
+    navigate(-1);
   };
 
   return (
@@ -90,6 +96,14 @@ const RegisterPage = () => {
         />
         <label htmlFor="privacy-policy">Ich stimme dem Datenschutz zu</label>
       </div>
+      {popup.show && (
+        <button
+          className={`popup-message ${popup.color}`}
+          style={{ opacity: popup.show ? 1 : 0 }}
+        >
+          {popup.message}
+        </button>
+      )}
     </div>
   );
 };

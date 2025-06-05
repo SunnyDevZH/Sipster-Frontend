@@ -6,6 +6,12 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [popup, setPopup] = useState({ show: false, message: '', color: '' });
+
+  const showPopup = (message, color) => {
+    setPopup({ show: true, message, color });
+    setTimeout(() => setPopup({ show: false, message: '', color: '' }), 4000);
+  };
 
   const handleLogin = async () => {
     try {
@@ -42,19 +48,18 @@ const LoginPage = () => {
             setItem('birthdate', userData.birthdate);
           }
 
-
-          alert('Login erfolgreich!');
-          navigate('/home');
+          showPopup('Login erfolgreich!', 'green');
+          setTimeout(() => navigate('/home'), 1500);
         } else {
-          alert('Fehler beim Abrufen der Benutzerdaten.');
+          showPopup('Fehler beim Abrufen der Benutzerdaten.', 'red');
         }
       } else {
         const errorData = await response.json();
-        alert(`Fehler: ${errorData.detail || 'Unbekannter Fehler'}`);
+        showPopup(`Fehler: ${errorData.detail || 'Unbekannter Fehler'}`, 'red');
       }
     } catch (error) {
       console.error('Fehler beim Login:', error);
-      alert('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
+      showPopup('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.', 'red');
     }
   };
 
@@ -83,6 +88,14 @@ const LoginPage = () => {
         <span>Noch kein Account? </span>
         <a onClick={handleRegister}>Registrieren</a>
       </div>
+      {popup.show && (
+        <button
+          className={`popup-message ${popup.color}`}
+          style={{ opacity: popup.show ? 1 : 0 }}
+        >
+          {popup.message}
+        </button>
+      )}
     </div>
   );
 };
