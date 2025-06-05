@@ -53,64 +53,55 @@ const ProfilePage = () => {
     navigate('/login'); // Weiterleitung zur Login-Seite
   };
 
-  const handleSaveChanges = async (selectedFile = null) => {
+  const handleSaveChanges = async (field, selectedFile = null) => {
     try {
-      // Falls ein Event-Objekt übergeben wird, ignoriere es
-      if (selectedFile && selectedFile.preventDefault) {
-        selectedFile = null;
-      }
-
       let accessToken = localStorage.getItem('accessToken');
-
+  
       // Überprüfe, ob der Token abgelaufen ist
       if (!accessToken) {
         await refreshAccessToken();
         accessToken = localStorage.getItem('accessToken');
       }
-
-      console.log('Daten, die gesendet werden:', {
-        username,
-        email,
-        birthdate,
-        password,
-        profilePic: profilePic, // Verwende das ausgewählte Bild, falls vorhanden
-      });
-
-      // FormData erstellen, um das Profilbild und andere Daten zu senden
-      const formData = new FormData();
-      formData.append('username', username);
-      formData.append('email', email);
-      formData.append('birthdate', birthdate || '2000-01-01'); // Fallback auf Standardwert
-      if (password) {
-        formData.append('password', password);
+  
+      // Daten vorbereiten, die aktualisiert werden sollen
+      const updatedData = new FormData();
+      if (field === 'username') updatedData.append('username', username);
+      if (field === 'email') updatedData.append('email', email);
+      if (field === 'birthdate') updatedData.append('birthdate', birthdate || '2000-01-01');
+      if (field === 'password') updatedData.append('password', password);
+      if (field === 'profile_picture' && (selectedFile || profilePic instanceof File)) {
+        updatedData.append('profile_picture', selectedFile || profilePic);
       }
-
-      
-      if (selectedFile || profilePic instanceof File) {
-        formData.append('profile_picture', selectedFile || profilePic); // Profilbild hinzufügen
-      }
-
+  
       const response = await fetch('http://127.0.0.1:8000/api/user/me/', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${accessToken}`, // Authentifizierung
         },
-        body: formData, // FormData senden
+        body: updatedData, // Nur die geänderten Daten senden
       });
-
+  
       if (response.ok) {
         const data = await response.json();
-
-        // Speichere die aktualisierten Werte im LocalStorage
-        localStorage.setItem('username', data.username);
-        localStorage.setItem('email', data.email);
-        localStorage.setItem('birthdate', birthdate);
-        if (data.profile_picture) {
-          console.log('Profilbild-URL:', data.profile_picture); // Debugging
-          localStorage.setItem('profilePic', data.profile_picture);
-          setProfilePic(data.profile_picture); // Aktualisiere das Profilbild im State
+  
+        // Aktualisiere nur die geänderten Werte im LocalStorage und State
+        if (data.username) {
+          localStorage.setItem('username', data.username);
+          setUsername(data.username);
         }
-
+        if (data.email) {
+          localStorage.setItem('email', data.email);
+          setEmail(data.email);
+        }
+        if (data.birthdate) {
+          localStorage.setItem('birthdate', data.birthdate);
+          setBirthdate(data.birthdate);
+        }
+        if (data.profile_picture) {
+          localStorage.setItem('profilePic', data.profile_picture);
+          setProfilePic(data.profile_picture);
+        }
+  
         alert('Änderungen erfolgreich gespeichert!');
       } else {
         console.error('Fehler beim Speichern der Änderungen:', response.statusText);
