@@ -224,7 +224,6 @@ const ProfilePage = () => {
           <a href="/profile">
             <img src="/src/assets/user.png" alt="Profil" className="nav-icon" style={{ width: '20px', height: '20px' }} />
             Profil
-            <div>test</div>
           </a>
         </div>
         <div className="nav-right">
