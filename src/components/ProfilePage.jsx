@@ -166,7 +166,7 @@ const ProfilePage = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-            <button className="save-button" onClick={handleSaveChanges}>
+            <button className="save-button" onClick={() => handleSaveChanges('username')}>
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
           </div>
@@ -179,7 +179,7 @@ const ProfilePage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <button className="save-button" onClick={handleSaveChanges}>
+            <button className="save-button" onClick={() => handleSaveChanges('email')}>
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
           </div>
@@ -192,7 +192,7 @@ const ProfilePage = () => {
               value={birthdate}
               onChange={(e) => setBirthdate(e.target.value)}
             />
-            <button className="save-button" onClick={handleSaveChanges}>
+            <button className="save-button" onClick={() => handleSaveChanges('birthdate')}>
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
           </div>
@@ -206,7 +206,7 @@ const ProfilePage = () => {
               placeholder="Neues Passwort eingeben"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="save-button" onClick={handleSaveChanges}>
+            <button className="save-button" onClick={() => handleSaveChanges('password')}>
               <img src="/src/assets/bookmark.png" alt="Ändern" className="button-icon" />
             </button>
           </div>
