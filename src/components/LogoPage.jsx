@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LogoPage = () => {
+
+  /* Navigation Hook */
   const navigate = useNavigate();
 
   const handleNext = () => {

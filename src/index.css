@@ -13,12 +13,8 @@
 a {
   font-weight: 500;
   text-decoration: inherit;
-  
 
 }
-
-
-
 
 body {
   margin: 0;
@@ -86,7 +82,7 @@ button:focus-visible {
 
 .page img {
   width: 200px; 
-  height: 200px; /* Passe die Größe des Logos an */
+  height: 200px;
 }
 
 .page button {
@@ -95,7 +91,6 @@ button:focus-visible {
   cursor: pointer;
 }
 
-/* ENDE */
 
 
 
@@ -128,10 +123,10 @@ button:focus-visible {
 .login-page input, .register-page input {
   margin-bottom: 10px;
   padding: 10px;
-  font-size: 14px; /* Kleinere Schriftgröße */
+  font-size: 14px; 
   width: 228px;
   border-radius: 20px; 
-  border: 1px solid #ccc; /* Optional: Rahmenfarbe */
+  border: 1px solid #ccc; 
 }
 
 .login-page button, .register-page button, .home-page button, .profile-page button {
@@ -200,7 +195,7 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px; /* Füge einen oberen Rand hinzu */
+  margin-top: 20px; 
   cursor: pointer;
 
   h2 {
@@ -209,8 +204,8 @@ button:focus-visible {
 }
 
 .profile-pic {
-  width: 120px !important; /* Verkleinere das Profilbild */
-  height: 120px !important; /* Verkleinere das Profilbild */
+  width: 120px !important; 
+  height: 120px !important; 
   border-radius: 50%;
   margin-bottom: 10px;
   object-fit: cover;
@@ -252,12 +247,12 @@ button:focus-visible {
 }
 
 .add-photo-button {
-  outline: none; /* Entfernt die blaue Umrandung */
+  outline: none; 
 }
 
 .add-photo-button:focus {
-  outline: none; /* Entfernt die Umrandung beim Fokussieren */
-  box-shadow: none; /* Entfernt eventuelle Schatten */
+  outline: none; 
+  box-shadow: none; 
 }
 
 .profile-page{
@@ -343,7 +338,7 @@ button:focus-visible {
 .category {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Links ausrichten */
+  align-items: flex-start; 
 }
 
 .popup-message {
@@ -377,8 +372,8 @@ button:focus-visible {
   display: flex;
   flex-direction: row;
   gap: 10px;
-  overflow-x: auto; /* Ermöglicht horizontales Scrollen */
-  white-space: nowrap; /* Verhindert Zeilenumbruch */
+  overflow-x: auto; 
+  white-space: nowrap; 
   width: 320px;
 }
 
@@ -406,10 +401,10 @@ button:focus-visible {
 }
 
 .category-item.active {
-  border: 2px solid #007bff; /* Blaue Umrandung */
-  background-color: rgba(0, 123, 255, 0.1); /* Leicht blaue Hintergrundfarbe */
-  border-radius: 8px; /* Abgerundete Ecken */
-  transition: all 0.3s ease; /* Sanfter Übergang */
+  border: 2px solid #007bff; 
+  background-color: rgba(0, 123, 255, 0.1); 
+  border-radius: 8px; 
+  transition: all 0.3s ease; 
 }
 
 .category-item-wrapper p {
@@ -467,7 +462,7 @@ button:focus-visible {
 
 .price-tag {
   position: absolute;
-  bottom: 30px; /* Preis weiter nach oben verschieben */
+  bottom: 30px; 
   left: 10px;
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
@@ -492,7 +487,7 @@ button:focus-visible {
 }
 
 .checkbox-container input {
-  margin-right: 5px; /* Reduziere den Abstand auf maximal 5px */
+  margin-right: 5px; 
   margin-left: -100px;
   
 }
@@ -513,18 +508,18 @@ button:focus-visible {
   position: relative;
   width: 60px;
   height: 30px;
-  background-color: #007bff; /* Blau für den Hintergrund */
+  background-color: #007bff; 
   border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .switch.on {
-  background-color: #007bff; /* Blau für "On" */
+  background-color: #007bff; 
 }
 
 .switch.off {
-  background-color: #ccc; /* Grau für "Off" */
+  background-color: #ccc; 
 }
 
 .switch .slider {
@@ -533,17 +528,17 @@ button:focus-visible {
   left: 3px;
   width: 24px;
   height: 24px;
-  background-color: white; /* Farbe des Sliders */
+  background-color: white; 
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
 
 .switch.on .slider {
-  transform: translateX(30px); /* Verschiebt den Slider nach rechts */
+  transform: translateX(30px);
 }
 
 .switch.off .slider {
-  transform: translateX(0); /* Slider bleibt links */
+  transform: translateX(0); 
 }
 
 .navigation-bar {
@@ -602,12 +597,12 @@ button:focus-visible {
 }
 
 .icon-div{
-  position: absolute; /* Positioniere das Element relativ zum nächsten positionierten Vorfahren */
-  top: 10px; /* Abstand von oben */
-  right: 10px; /* Abstand von rechts */
-  display: flex; /* Behalte die Flexbox-Eigenschaften */
-  flex-direction: column; /* Ordne den Inhalt vertikal an */
-  align-items: center; /* Zentriere den Inhalt horizontal */
+  position: absolute; 
+  top: 10px; 
+  right: 10px; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
 
 
   h2{
@@ -617,11 +612,11 @@ button:focus-visible {
 }
 
 .icon-bar {
-  display: flex; /* Icons horizontal ausrichten */
-  flex-direction: row; /* Horizontale Anordnung */
-  justify-content: center; /* Zentriere die Icons */
-  align-items: center; /* Vertikal zentrieren */
-  gap: 10px; /* Abstand zwischen den Icons */
+  display: flex; 
+  flex-direction: row; 
+  justify-content: center; 
+  align-items: center; 
+  gap: 10px; 
   
  
 }
@@ -629,20 +624,20 @@ button:focus-visible {
 .icon {
   background-color: white;
 
-  padding: 4px; /* Entfernt das Padding */
-  border-radius: 50%; /* Entfernt den Kreis */
+  padding: 4px; 
+  border-radius: 50%; 
   cursor: pointer;
   display: flex;
-  justify-content: center; /* Zentriere den Inhalt horizontal */
-  align-items: center; /* Zentriere den Inhalt vertikal */
-  transition: all 0.3s ease; /* Sanfter Übergang */
+  justify-content: center; 
+  align-items: center; 
+  transition: all 0.3s ease; 
 }
 
 
 .icon.active {
-  border: 2px solid #007bff; /* Blaue Umrandung für den aktiven Zustand */
-  background-color: rgba(0, 123, 255, 0.1); /* Leicht blaue Hintergrundfarbe */
-  border-radius: 0; /* Aktiver Zustand bleibt quadratisch */
+  border: 2px solid #007bff; 
+  background-color: rgba(0, 123, 255, 0.1); 
+  border-radius: 0; 
 }
 
 .icon {
@@ -654,10 +649,10 @@ button:focus-visible {
 
 
 .icon.active {
-  border: 1px solid #007bff; /* Blaue Umrandung */
-  background-color: rgba(0, 123, 255, 0.1); /* Leicht blaue Hintergrundfarbe */
-  border-radius: 8px; /* Abgerundete Ecken */
-  transition: all 0.3s ease; /* Sanfter Übergang */
+  border: 1px solid #007bff; 
+  background-color: rgba(0, 123, 255, 0.1); 
+  border-radius: 8px; 
+  transition: all 0.3s ease; 
   padding: 5px;
 }
 
@@ -673,8 +668,8 @@ button:focus-visible {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: spin 2s linear infinite; /* Ändere die Dauer auf 2 Sekunden */
-  z-index: 9999; /* Sicherstellen, dass die Animation auf der obersten Ebene ist */
+  animation: spin 2s linear infinite; 
+  z-index: 9999; 
 }
 
 .loading-icon {
@@ -716,7 +711,7 @@ button:focus-visible {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Abdunkelung */
+  background-color: rgba(0, 0, 0, 0.7); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -729,11 +724,11 @@ button:focus-visible {
   border-radius: 8px;
   width: 80%;
   max-width: 500px;
-  max-height: 90vh; /* Begrenze die maximale Höhe des Modals */
+  max-height: 90vh; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
-  text-align: left; /* Links-Ausrichtung */
-  overflow-y: auto; /* Aktiviert vertikales Scrollen, falls der Inhalt zu groß ist */
+  text-align: left; 
+  overflow-y: auto; 
 
   h2{
     margin: 0px;;
@@ -741,37 +736,37 @@ button:focus-visible {
 }
 
 .modal-content img {
-  width: 100%; /* Bild füllt die Breite des Containers */
-  height: auto; /* Höhe wird proportional angepasst */
-  max-height: 400px; /* Erhöhe die maximale Höhe */
-  object-fit: cover; /* Schneidet das Bild zu, falls nötig */
-  border-radius: 10px; /* Abgerundete Ecken */
-  transition: transform 0.3s ease-in-out; /* Sanfter Übergang */
+  width: 100%; 
+  height: auto; 
+  max-height: 400px; 
+  object-fit: cover; 
+  border-radius: 10px; 
+  transition: transform 0.3s ease-in-out; 
 }
 
 .modal-content p {
-  margin: 10px 0; /* Abstand zwischen den Absätzen */
+  margin: 10px 0; 
   font-size: 14px;
   color: #333;
 }
 
 .modal-content iframe {
-  margin-top: 10px; /* Abstand über dem Google Maps-Ausschnitt */
-  border-radius: 8px; /* Abgerundete Ecken */
+  margin-top: 10px; 
+  border-radius: 8px;
 }
 
 .modal-content .price-tag {
   position: absolute;
   width: 20px;
-  bottom: 30px; /* Abstand vom unteren Rand des Bildes */
-  right: 10px; /* Abstand vom rechten Rand des Bildes */
-  background-color: rgba(0, 0, 0, 0.7); /* Halbtransparenter Hintergrund */
-  color: white; /* Textfarbe */
-  padding: 5px 10px; /* Innenabstand */
-  border-radius: 5px; /* Abgerundete Ecken */
-  font-size: 14px; /* Schriftgröße */
-  font-weight: bold; /* Fettschrift */
-  z-index: 2; /* Stellt sicher, dass die Preisanzeige über dem Bild liegt */
+  bottom: 30px; 
+  right: 10px; 
+  background-color: rgba(0, 0, 0, 0.7); 
+  color: white; 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  font-size: 14px; 
+  font-weight: bold; 
+  z-index: 2; 
 }
 
 .close-button {
@@ -786,7 +781,7 @@ button:focus-visible {
 
 .bar-container div:hover {
   cursor: pointer;
-  transform: scale(1.02); /* Leichter Zoom-Effekt */
+  transform: scale(1.02); 
   transition: transform 0.2s ease-in-out;
 }
 
@@ -794,29 +789,29 @@ button:focus-visible {
   position: absolute;
   top: 20px;
   right: 20px;
-  background-color: white; /* Hintergrundfarbe ähnlich wie die divs */
-  color: black; /* Textfarbe */
-  font-size: 18px; /* Größe des "X" */
+  background-color: white; 
+  color: black; 
+  font-size: 18px; 
   font-weight: bold;
-  width: 30px; /* Breite des Symbols */
-  height: 30px; /* Höhe des Symbols */
+  width: 30px; 
+  height: 30px; 
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%; /* Rundes Design */
+  border-radius: 50%; 
   
   cursor: pointer;
   
 }
 
 .close-icon:hover {
-  transform: scale(1.1); /* Leichter Zoom-Effekt beim Hover */
-  background-color: rgba(0, 0, 0, 0.1); /* Leicht abgedunkelter Hintergrund beim Hover */
+  transform: scale(1.1); 
+  background-color: rgba(0, 0, 0, 0.1); 
 }
 
 .google-maps-icon {
-  width: 40px !important; /* Breite des Icons */
-  height: 40px !important; /* Höhe des Icons */
+  width: 40px !important; 
+  height: 40px !important; 
   transition: transform 0.2s ease-in-out;
   margin-left: 10px;
 }
@@ -833,24 +828,24 @@ button:focus-visible {
 
 
 .status-circle {
-  width: 50px; /* Kleinere Breite des Kreises */
-  height: 50px; /* Kleinere Höhe des Kreises */
+  width: 50px; 
+  height: 50px; 
   border-radius: 50%;
   background-color: #f0f0f0;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 5px; /* Weniger Abstand zum Text */
+  margin-bottom: 5px; 
 }
 
 .status-circle img {
-  width: 30px; /* Kleinere Breite des Bildes */
-  height: 30px; /* Kleinere Höhe des Bildes */
+  width: 30px; 
+  height: 30px; 
 }
 
 .status-container p {
-  font-size: 12px; /* Schriftgröße auf maximal 12px setzen */
+  font-size: 12px; 
   font-weight: bold;
   color: #333;
   margin: 0;
@@ -858,18 +853,18 @@ button:focus-visible {
 
 .image-wrapper {
   margin-top: 5px;
-  position: relative; /* Ermöglicht die absolute Positionierung der Preisanzeige */
+  position: relative; 
   width: 100%;
-  max-height: 400px; /* Begrenze die maximale Höhe des Bildes */
-  overflow: hidden; /* Verhindert, dass Inhalte außerhalb des Containers angezeigt werden */
-  border-radius: 10px; /* Abgerundete Ecken */
+  max-height: 400px; 
+  overflow: hidden; 
+  border-radius: 10px; 
 }
 
 .image-wrapper img {
   width: 100%;
   height: auto;
-  object-fit: cover; /* Schneidet das Bild zu, falls nötig */
-  border-radius: 10px; /* Abgerundete Ecken */
+  object-fit: cover; 
+  border-radius: 10px; 
 }
 
 .confetti-canvas {
@@ -878,8 +873,8 @@ button:focus-visible {
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* Verhindert, dass das Canvas Klicks blockiert */
-  z-index: 10; /* Überlagert den Modal-Inhalt */
+  pointer-events: none; 
+  z-index: 10; 
 }
 
 .adress{
@@ -922,12 +917,12 @@ button:focus-visible {
   margin: 0;
 }
 
-/* Switch-Styling */
+
 .switch {
   position: relative;
   width: 60px;
   height: 30px;
-  background-color: #007bff; /* Blau für den Hintergrund */
+  background-color: #007bff; 
   border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -942,17 +937,17 @@ button:focus-visible {
   left: 3px;
   width: 24px;
   height: 24px;
-  background-color: white; /* Farbe des Sliders */
+  background-color: white; 
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
 
 .switch.on .slider {
-  transform: translateX(30px); /* Verschiebt den Slider nach rechts */
+  transform: translateX(30px); 
 }
 
 .switch.off .slider {
-  transform: translateX(0); /* Slider bleibt links */
+  transform: translateX(0);
 }
 
 .visited-bars {

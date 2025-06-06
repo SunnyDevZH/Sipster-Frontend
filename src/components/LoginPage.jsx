@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { setItem } from '../utils/localStorageHelper';
 
 const LoginPage = () => {
+
+  /* Navigation Hook */
   const navigate = useNavigate();
+
+  /* States */
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [popup, setPopup] = useState({ show: false, message: '', color: '' });
@@ -12,6 +16,8 @@ const LoginPage = () => {
     setPopup({ show: true, message, color });
     setTimeout(() => setPopup({ show: false, message: '', color: '' }), 4000);
   };
+
+    /* Handler für Login */
 
   const handleLogin = async () => {
     try {
@@ -31,7 +37,7 @@ const LoginPage = () => {
         setItem('accessToken', data.access);
         setItem('refreshToken', data.refresh);
 
-        // Abrufen der Benutzerdaten
+        
         const userResponse = await fetch('http://127.0.0.1:8000/api/user/me/', {
           method: 'GET',
           headers: {
@@ -66,6 +72,8 @@ const LoginPage = () => {
   const handleRegister = () => {
     navigate('/register');
   };
+
+  /* JSX-Rückgabe der Komponente mit UI-Elementen und Eventhandlern */
 
   return (
     <div className="page login-page">

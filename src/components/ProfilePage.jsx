@@ -3,23 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import { getItem, removeItem } from '../utils/localStorageHelper';
 
 const ProfilePage = () => {
+
+  /* Navigation Hook */
   const navigate = useNavigate();
+
+  /* States */
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [password, setPassword] = useState('');
   const [points, setPoints] = useState(0);
   const [title, setTitle] = useState('Trinkanfänger');
-
-  // Profilbild-Datei und URL getrennt verwalten
   const [profilePicFile, setProfilePicFile] = useState(null);
   const [profilePicUrl, setProfilePicUrl] = useState('/src/assets/neutral.png');
-
   const [backgroundColor, setBackgroundColor] = useState('rgb(234,236,235)');
   const [popup, setPopup] = useState({ show: false, message: '', color: '' });
 
   useEffect(() => {
-    // Initial aus localStorage laden
+    /* Laden von Username, Email, Birthdate usw. */
+
     const storedUsername = localStorage.getItem('username');
     const storedEmail = localStorage.getItem('email');
     const storedBirthdate = localStorage.getItem('birthdate');
@@ -47,6 +49,8 @@ const ProfilePage = () => {
     setPopup({ show: true, message, color });
     setTimeout(() => setPopup({ show: false, message: '', color: '' }), 4000);
   };
+
+  /* Handler für Logout, Speichern von Änderungen und Farbauswahl */
 
   const handleLogout = () => {
     removeItem('accessToken');
@@ -135,6 +139,8 @@ const ProfilePage = () => {
     localStorage.setItem('backgroundColor', color);
     setBackgroundColor(color);
   };
+
+  /* JSX-Rückgabe der Komponente mit UI-Elementen und Eventhandlern */
 
   return (
     <div className="page profile-page">

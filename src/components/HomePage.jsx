@@ -3,14 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import confetti from 'canvas-confetti';
 
 const HomePage = () => {
+
+  /* Navigation Hook */
   const navigate = useNavigate();
+
+  /* States */
   const [profilePic, setProfilePic] = useState('/src/assets/neutral.png');
   const [backgroundColor, setBackgroundColor] = useState('rgb(234,236,235)');
   const [showAnimation, setShowAnimation] = useState(false);
-  const [checkedBars, setCheckedBars] = useState(() => {
-    const saved = localStorage.getItem('checkedBars');
-    return saved ? JSON.parse(saved) : {};
-  });
+  const [checkedBars, setCheckedBars] = useState(() => { const saved = localStorage.getItem('checkedBars');return saved ? JSON.parse(saved) : {};});
   const [pointsAnimation, setPointsAnimation] = useState({});
   const [title, setTitle] = useState('Schluck-Novize');
   const [username, setUsername] = useState('');
@@ -24,6 +25,9 @@ const HomePage = () => {
   const [points, setPoints] = useState(0);
 
   useEffect(() => {
+
+    /* Laden von Username, Farben, Bars und Kategorien */
+
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
       setUsername(storedUsername);
@@ -59,10 +63,8 @@ const HomePage = () => {
         console.error('Fehler beim Abrufen der Bars:', error);
       }
     };
-
     fetchBars();
 
-    // Kategorien vom Backend laden
     const fetchCategories = async () => {
       try {
         const response = await fetch('http://127.0.0.1:8000/api/categories/');
@@ -75,10 +77,14 @@ const HomePage = () => {
       }
     };
     fetchCategories();
+
   }, []);
 
   useEffect(() => {
-    const storedProfilePic = localStorage.getItem('profilePic');
+
+    /* Lädt Profilbild und Hintergrundfarbe aus localStorage */
+
+        const storedProfilePic = localStorage.getItem('profilePic');
     const savedColor = localStorage.getItem('backgroundColor');
 
     if (storedProfilePic) {
@@ -94,6 +100,8 @@ const HomePage = () => {
       localStorage.setItem('backgroundColor', 'rgb(234,236,235)');
     }
   }, []);
+
+  /* Handler für Navigation, Zufällige Bar, ChecktBars, Konfetti, Filter, Punkte usw.  */
 
   const handleProfileClick = () => {
     navigate('/profile');
@@ -168,6 +176,8 @@ const HomePage = () => {
       : true;
     return matchesSearch && matchesCategory;
   });
+
+   /* JSX-Rückgabe der Komponente mit UI-Elementen und Eventhandlern */
 
   return (
     <div className="page home-page">

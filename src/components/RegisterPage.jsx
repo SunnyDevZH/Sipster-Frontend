@@ -2,20 +2,24 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
+
+  /* Navigation Hook */
   const navigate = useNavigate();
+
+  /* States */
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isChecked, setIsChecked] = useState(false);
-
-  // Status für Popups
   const [popup, setPopup] = useState({ show: false, message: '', color: '' });
 
   const showPopup = (message, color) => {
     setPopup({ show: true, message, color });
     setTimeout(() => setPopup({ show: false, message: '', color: '' }), 4000);
   };
+
+  /* Handler für die Registrierung */
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
@@ -56,6 +60,8 @@ const RegisterPage = () => {
   const handleBack = () => {
     navigate(-1);
   };
+
+  /* JSX-Rückgabe der Komponente mit UI-Elementen und Eventhandlern */
 
   return (
     <div className="page register-page">
