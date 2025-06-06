@@ -60,11 +60,7 @@ const ProfilePage = () => {
   const handleSaveChanges = async (field, selectedFile = null) => {
     try {
       let accessToken = localStorage.getItem('accessToken');
-<<<<<<< HEAD
-      if (!accessToken) return alert('Zugriff verweigert. Bitte erneut einloggen.');
-=======
       if (!accessToken) return showPopup('Zugriff verweigert. Bitte erneut einloggen.', 'red');
->>>>>>> 43d577b (Initial commit)
 
       const updatedData = new FormData();
 
@@ -85,11 +81,7 @@ const ProfilePage = () => {
       }
 
       if ([...updatedData.keys()].length === 0) {
-<<<<<<< HEAD
-        alert('Keine Änderungen vorgenommen.');
-=======
         showPopup('Keine Änderungen vorgenommen.', 'red');
->>>>>>> 43d577b (Initial commit)
         return;
       }
 
@@ -116,36 +108,21 @@ const ProfilePage = () => {
           localStorage.setItem('birthdate', data.birthdate);
           setBirthdate(data.birthdate);
         }
-<<<<<<< HEAD
-        // Profilbild nur updaten, wenn gerade das Profilbild geändert wurde
-=======
->>>>>>> 43d577b (Initial commit)
         if (field === 'profile_picture' && data.profile_picture) {
           localStorage.setItem('profilePic', data.profile_picture);
           setProfilePicUrl(data.profile_picture);
           setProfilePicFile(null);
         }
 
-<<<<<<< HEAD
-        alert('Änderungen erfolgreich gespeichert!');
-        setPassword('');
-      } else {
-        alert('Fehler beim Speichern der Änderungen.');
-=======
         showPopup('Änderungen erfolgreich gespeichert!', 'green');
         setPassword('');
       } else {
         showPopup('Fehler beim Speichern der Änderungen.', 'red');
->>>>>>> 43d577b (Initial commit)
         console.error(response.statusText);
       }
     } catch (error) {
       console.error(error);
-<<<<<<< HEAD
-      alert('Fehler beim Speichern der Änderungen.');
-=======
       showPopup('Fehler beim Speichern der Änderungen.', 'red');
->>>>>>> 43d577b (Initial commit)
     }
   };
 
