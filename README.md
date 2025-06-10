@@ -34,11 +34,15 @@ Stelle sicher, dass die folgenden Tools auf deinem System installiert sind:
    git clone https://github.com/SunnyDevZH/Sipster-Frontend
    cd Sipster-Frontend
 
-2. **Abhängigkeiten installieren**
+2. **Ordner öffnen**
+    ```bash
+    cd Sipster-Frontend
+
+3. **Abhängigkeiten installieren**
    ```bash
     npm install
 
-3. **Entwicklungsserver starten:**
+4. **Entwicklungsserver starten:**
    ```bash
     npm run dev 
 
