@@ -51,13 +51,13 @@ Stelle sicher, dass die folgenden Tools auf deinem System installiert sind:
 
 PDF mit:
 
-• Beschreibung der Applikation und ihres Funktionsumfangs
-• Funktionale und nichtfunktionale Anforderungen
-• Projektstruktur: Roadmap und grobe Aufgaben
-• Bewertung der Applikation hinsichtlich allgemeiner Projektanforderungen
-• Design-Grundbausteine
-• Wireframes für das Frontend
-• Die Tools und Technologien
+- Beschreibung der Applikation und ihres Funktionsumfangs
+- Funktionale und nichtfunktionale Anforderungen
+- Projektstruktur: Roadmap und grobe Aufgaben
+- Bewertung der Applikation hinsichtlich allgemeiner Projektanforderungen
+- Design-Grundbausteine
+- Wireframes für das Frontend
+- Die Tools und Technologien
 
 **Meilenstein 2 Freitag, 28. März 2025**
 
