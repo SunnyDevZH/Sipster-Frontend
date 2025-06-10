@@ -32,7 +32,6 @@ Stelle sicher, dass die folgenden Tools auf deinem System installiert sind:
 
    ```bash
    git clone https://github.com/SunnyDevZH/Sipster-Frontend
-   cd Sipster-Frontend
 
 2. **Ordner öffnen**
     ```bash
