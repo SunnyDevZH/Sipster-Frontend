@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import confetti from 'canvas-confetti';
 
-const HomePage = () => {
+const getCheckedBarsKey = (username) => `checkedBars_${username}`;
 
-  /* Navigation Hook */
+const HomePage = () => {
   const navigate = useNavigate();
 
-  /* States */
   const [profilePic, setProfilePic] = useState('/src/assets/neutral.png');
   const [backgroundColor, setBackgroundColor] = useState('rgb(234,236,235)');
   const [showAnimation, setShowAnimation] = useState(false);
-  const [checkedBars, setCheckedBars] = useState(() => { const saved = localStorage.getItem('checkedBars');return saved ? JSON.parse(saved) : {};});
+  const [checkedBars, setCheckedBars] = useState({});
   const [pointsAnimation, setPointsAnimation] = useState({});
   const [title, setTitle] = useState('Schluck-Novize');
   const [username, setUsername] = useState('');
@@ -24,23 +23,28 @@ const HomePage = () => {
   const [isMagicPopup, setIsMagicPopup] = useState(false);
   const [points, setPoints] = useState(0);
 
+  // Username laden und checkedBars initialisieren
   useEffect(() => {
+    const storedUsername = localStorage.getItem('username') || '';
+    setUsername(storedUsername);
 
-    /* Laden von Username, Farben, Bars und Kategorien */
+    // checkedBars für diesen User laden
+    const saved = localStorage.getItem(getCheckedBarsKey(storedUsername));
+    setCheckedBars(saved ? JSON.parse(saved) : {});
+  }, []);
 
-    const storedUsername = localStorage.getItem('username');
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
+  // Wenn Username sich ändert (z.B. neuer Login), checkedBars neu laden
+  useEffect(() => {
+    if (!username) return;
+    const saved = localStorage.getItem(getCheckedBarsKey(username));
+    setCheckedBars(saved ? JSON.parse(saved) : {});
+  }, [username]);
 
-    const savedColor = localStorage.getItem('backgroundColor');
-    if (savedColor) {
-      document.body.style.backgroundColor = savedColor;
-    }
-
-    const savedCheckedBars = JSON.parse(localStorage.getItem('checkedBars')) || {};
-    const checkedCount = Object.values(savedCheckedBars).filter(Boolean).length;
+  // Punkte und Titel aktualisieren, wenn checkedBars sich ändern
+  useEffect(() => {
+    const checkedCount = Object.values(checkedBars).filter(Boolean).length;
     const newPoints = checkedCount * 20;
+    setPoints(newPoints);
 
     if (newPoints <= 30) {
       setTitle('Trink-Anfänger');
@@ -48,6 +52,14 @@ const HomePage = () => {
       setTitle('Baronaut');
     } else {
       setTitle('Tresengott');
+    }
+  }, [checkedBars]);
+
+  // Bars und Kategorien laden
+  useEffect(() => {
+    const savedColor = localStorage.getItem('backgroundColor');
+    if (savedColor) {
+      document.body.style.backgroundColor = savedColor;
     }
 
     const fetchBars = async () => {
@@ -77,14 +89,10 @@ const HomePage = () => {
       }
     };
     fetchCategories();
-
   }, []);
 
   useEffect(() => {
-
-    /* Lädt Profilbild und Hintergrundfarbe aus localStorage */
-
-        const storedProfilePic = localStorage.getItem('profilePic');
+    const storedProfilePic = localStorage.getItem('profilePic');
     const savedColor = localStorage.getItem('backgroundColor');
 
     if (storedProfilePic) {
@@ -100,8 +108,6 @@ const HomePage = () => {
       localStorage.setItem('backgroundColor', 'rgb(234,236,235)');
     }
   }, []);
-
-  /* Handler für Navigation, Zufällige Bar, ChecktBars, Konfetti, Filter, Punkte usw.  */
 
   const handleProfileClick = () => {
     navigate('/profile');
@@ -125,23 +131,11 @@ const HomePage = () => {
     const isChecked = !checkedBars[barName];
     setCheckedBars((prevState) => {
       const updatedBars = { ...prevState, [barName]: isChecked };
-      localStorage.setItem('checkedBars', JSON.stringify(updatedBars));
+      localStorage.setItem(getCheckedBarsKey(username), JSON.stringify(updatedBars));
       return updatedBars;
     });
 
-    const savedCheckedBars = JSON.parse(localStorage.getItem('checkedBars')) || {};
-    const checkedCount = Object.values({ ...savedCheckedBars, [barName]: isChecked }).filter(Boolean).length;
-    const newPoints = checkedCount * 20;
-    setPoints(newPoints);
-    localStorage.setItem('points', newPoints);
-
-    if (newPoints <= 30) {
-      setTitle('Trink-Anfänger');
-    } else if (newPoints <= 60) {
-      setTitle('Baronaut');
-    } else {
-      setTitle('Tresengott');
-    }
+    // Punkte und Titel werden automatisch durch useEffect aktualisiert
 
     if (isChecked) {
       triggerConfetti();
@@ -176,8 +170,6 @@ const HomePage = () => {
       : true;
     return matchesSearch && matchesCategory;
   });
-
-   /* JSX-Rückgabe der Komponente mit UI-Elementen und Eventhandlern */
 
   return (
     <div className="page home-page">
