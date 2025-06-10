@@ -31,7 +31,7 @@ Stelle sicher, dass die folgenden Tools auf deinem System installiert sind:
 1. **Klonen Sie das Repository:**
 
    ```bash
-   git clone <https://github.com/SunnyDevZH/Sipster-Frontend>
+   git clone https://github.com/SunnyDevZH/Sipster-Frontend
    cd Sipster-Frontend
 
 2. **Abhängigkeiten installieren**
