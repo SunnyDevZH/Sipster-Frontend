@@ -4,9 +4,12 @@ import confetti from 'canvas-confetti';
 
 const getCheckedBarsKey = (username) => `checkedBars_${username}`;
 
+
+/* Navigation Hook */
 const HomePage = () => {
   const navigate = useNavigate();
 
+    /* States */
   const [profilePic, setProfilePic] = useState('/src/assets/neutral.png');
   const [backgroundColor, setBackgroundColor] = useState('rgb(234,236,235)');
   const [showAnimation, setShowAnimation] = useState(false);
@@ -23,24 +26,21 @@ const HomePage = () => {
   const [isMagicPopup, setIsMagicPopup] = useState(false);
   const [points, setPoints] = useState(0);
 
-  // Username laden und checkedBars initialisieren
+  /* Laden von Username, Punkte, Bars, Kategorien usw. */
   useEffect(() => {
     const storedUsername = localStorage.getItem('username') || '';
     setUsername(storedUsername);
 
-    // checkedBars für diesen User laden
     const saved = localStorage.getItem(getCheckedBarsKey(storedUsername));
     setCheckedBars(saved ? JSON.parse(saved) : {});
   }, []);
 
-  // Wenn Username sich ändert (z.B. neuer Login), checkedBars neu laden
   useEffect(() => {
     if (!username) return;
     const saved = localStorage.getItem(getCheckedBarsKey(username));
     setCheckedBars(saved ? JSON.parse(saved) : {});
   }, [username]);
 
-  // Punkte und Titel aktualisieren, wenn checkedBars sich ändern
   useEffect(() => {
     const checkedCount = Object.values(checkedBars).filter(Boolean).length;
     const newPoints = checkedCount * 20;
@@ -55,7 +55,6 @@ const HomePage = () => {
     }
   }, [checkedBars]);
 
-  // Bars und Kategorien laden
   useEffect(() => {
     const savedColor = localStorage.getItem('backgroundColor');
     if (savedColor) {
@@ -109,6 +108,8 @@ const HomePage = () => {
     }
   }, []);
 
+  /* Handler für Magic Button, aktualisierung Punkte, Farbauswahl usw. */
+
   const handleProfileClick = () => {
     navigate('/profile');
   };
@@ -134,8 +135,6 @@ const HomePage = () => {
       localStorage.setItem(getCheckedBarsKey(username), JSON.stringify(updatedBars));
       return updatedBars;
     });
-
-    // Punkte und Titel werden automatisch durch useEffect aktualisiert
 
     if (isChecked) {
       triggerConfetti();
@@ -170,6 +169,8 @@ const HomePage = () => {
       : true;
     return matchesSearch && matchesCategory;
   });
+
+    /* JSX-Rückgabe der Komponente mit UI-Elementen und Eventhandlern */
 
   return (
     <div className="page home-page">

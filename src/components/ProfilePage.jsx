@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getItem, removeItem } from '../utils/localStorageHelper';
 
+
+const getCheckedBarsKey = (username) => `checkedBars_${username}`;
+
 const ProfilePage = () => {
 
   /* Navigation Hook */
@@ -37,7 +40,11 @@ const ProfilePage = () => {
       document.body.style.backgroundColor = savedColor;
     }
 
-    const savedPoints = parseInt(localStorage.getItem('points'), 10) || 0;
+    const checkedBarsKey = getCheckedBarsKey(storedUsername);
+    const savedCheckedBars = localStorage.getItem(checkedBarsKey);
+    const checkedBars = savedCheckedBars ? JSON.parse(savedCheckedBars) : {};
+    const checkedCount = Object.values(checkedBars).filter(Boolean).length;
+    const savedPoints = checkedCount * 20;
     setPoints(savedPoints);
 
     if (savedPoints <= 30) setTitle('Trink-Anfänger');
